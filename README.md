@@ -3,6 +3,7 @@
 ## Database
 
 - **Account Strucuture**  
+  
 | Data       | Variable         | Type   | Description |
 |------------|------------------|--------|-------------|
 | 소유주 이름      | owner_name       | string |             |
