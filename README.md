@@ -56,6 +56,21 @@ Stock Trading System란 주식 거래 시스템으로 사용자의 계좌 포트
 - 종목 캔들 차트 생성: 콘솔 상에 OHLCV를 캔들차트로 그림
 - 고점 대비 과대 낙폭 주식 검색: 고점 대비 크게 떨어진 주식들을 출력한다.
 
+## Team Role
+### 김성은
+- Wiki 편집
+- 가상의 주식 종목 생성
+- 주식 데이터 업데이트
+- 보조 지표
+- 종목 캔들 차트 생성
+- 고점 대비 과대 낙폭 주식 검색
+### 김성지
+- 
+
+## Development Environment
+<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=c%2B%2B&logoColor=white">
+<img src="https://img.shields.io/badge/visualstudiocode-007ACC?style=for-the-badge&logo=c%2B%2B&logoColor=white">
+
 ## Development Language
 <img src="https://img.shields.io/badge/c++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white">
 
