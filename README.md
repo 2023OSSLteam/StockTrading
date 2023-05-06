@@ -2,6 +2,20 @@
 
 ## Database
 
+Account Strucuture
+| Data       | Variable         | Type   | Description |
+|------------|------------------|--------|-------------|
+| 소유주 이름      | owner_name       | string |             |
+| 계좌번호    | accountID        | string |             |
+| 계좌 비밀번호 | password         | string |             |
+| 보유 주식 데이터 | stockOwned       | map    |             |
+| 매입 금액 | purchaseAmount   | int    |             |
+| 총 자산 | asset            | int    |             |
+| 평가 금액 | totalStockValue  | int    |             |
+| 예수금 | cash             | int    |             |
+| 계좌 수익률 | assetReturnRatio | float  |             |
+| 계좌 수익 | assetReturnValue | int    |             |
+
 ## Function of Stock Trading CRUD
 
 CRUD와 세이브(S), 업로드 기능(L) 그리고 추가하고 싶은 기능들을 정리해 보겠습니다. -by 김성지
