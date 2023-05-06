@@ -2,7 +2,7 @@
 
 ## Database
 
-Account Strucuture
+- **Account Strucuture**  
 | Data       | Variable         | Type   | Description |
 |------------|------------------|--------|-------------|
 | 소유주 이름      | owner_name       | string |             |
@@ -16,6 +16,9 @@ Account Strucuture
 | 계좌 수익률 | assetReturnRatio | float  |             |
 | 계좌 수익 | assetReturnValue | int    |             |
 
+- **stockOwned Map** 
+
+- **Stock Data**  
 ## Function of Stock Trading CRUD
 
 CRUD와 세이브(S), 업로드 기능(L) 그리고 추가하고 싶은 기능들을 정리해 보겠습니다. -by 김성지
@@ -49,8 +52,9 @@ extra
 ## About us
 안녕하세요 20학번 김성지입니다.
 
-AI Quant Developer를 꿈꾸는 20학번 김성은입니다!!  
+AI Quant Developer를 꿈꾸는 20학번 김성은입니다!!    
 OSS Project 파이팅!!  
+  
 <a href="https://github.com/immanuelk1m">
 <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=c%2B%2B&logoColor=white">
 </a>
