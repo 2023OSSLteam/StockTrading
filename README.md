@@ -48,3 +48,7 @@ extra
 
 ## About us
 안녕하세요 20학번 김성지입니다.
+
+AI Quant Developer를 꿈꾸는 20학번 김성은입니다!!
+OSS Project 파이팅!!
+<img src="https://img.shields.io/badge/github-#181717?style=for-the-badge&logo=c%2B%2B&logoColor=white">
