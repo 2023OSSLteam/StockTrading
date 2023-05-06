@@ -1,4 +1,6 @@
-# Stock Trading System
+# Stock Trading System  
+Stock Trading System란 주식 거래 시스템으로 사용자의 계좌 포트폴리오를 관리하고  
+주식 데이터, 보조 지표, 뉴스 데이터를 제공합니다
 
 ## Database
 
@@ -6,16 +8,16 @@
   
 | Data       | Variable         | Type   | Description |
 |------------|------------------|--------|-------------|
-| 소유주 이름      | owner_name       | string |             |
-| 계좌번호    | accountID        | string |             |
-| 계좌 비밀번호 | password         | string |             |
-| 보유 주식 데이터 | stockOwned       | map    |             |
-| 매입 금액 | purchaseAmount   | int    |             |
-| 총 자산 | asset            | int    |             |
-| 평가 금액 | totalStockValue  | int    |             |
-| 예수금 | cash             | int    |             |
-| 계좌 수익률 | assetReturnRatio | float  |             |
-| 계좌 수익 | assetReturnValue | int    |             |
+| 소유주 이름      | owner_name | string | 계좌 소유자의 이름 *e.g. 홍길동* |
+| 계좌번호    | accountID | string |시스템 상에 등록된 사용자의 계좌번호 *e.g. 1234-5678* |
+| 계좌 비밀번호 | password | string |시스템 상에 등록된 사용자의 계좌 비밀번호 *e.g. 1234*|
+| 보유 주식 데이터 | stockOwned | map    | 소유주의 보유 종목명, 종목 주가, 각 종목 수익률, 각 종목 매입 단가, 각 평가 금액을 담은 데이터 set|
+| 매입 금액 | purchaseAmount | int    | 총 주식 매입 금액 = 보유 주식 데이터의 각 종목 평균 단가의 합 |
+| 평가 금액 | totalStockValue  | int    | 총 주식 평가 금액 = 보유 주식 데이터의 각 종목 평가 금액의 합 |
+| 총 자산 | asset  | int    | 평가 금액과 예수금을 합한 값 |
+| 예수금 | cash | int    | 현재 잔여 현금 |
+| 계좌 수익률 | assetReturnRatio | float  | 매입 금액과 평가 금액의 가격 비율 *e.g. 14%*|
+| 계좌 수익 | assetReturnValue | int    | 평가 금액 - 매입 금액 *e.g. 124,000*|
 
 - **stockOwned Map** 
 
