@@ -4,8 +4,7 @@
 
 ## Function of Stock Trading CRUD
 
-안녕하세요 20학번 김성지입니다.
-CRUD와 세이브(S), 업로드 기능(L) 그리고 추가하고 싶은 기능들을 정리해 보겠습니다.
+CRUD와 세이브(S), 업로드 기능(L) 그리고 추가하고 싶은 기능들을 정리해 보겠습니다. -by 김성지
 
 C: 예금주, 보유 주식, 예수금, 계좌 비밀번호를 넣게 만든다.
 R: 현재 가입한 사람들의 정보를 보인다.
@@ -30,4 +29,4 @@ extra
 <img src="https://img.shields.io/badge/c++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white">
 
 ## About us
- 
+안녕하세요 20학번 김성지입니다.
