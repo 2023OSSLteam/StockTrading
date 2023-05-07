@@ -45,7 +45,7 @@ Stock Trading System란 주식 거래 시스템으로 사용자의 계좌 포트
 - 판매 기능: 특정 주식을 판매할 수 있게 만들고 판매하면 그 판매한 크기만큼 보유 주식의 크기 및 예수금 등을 변환시킨다.
 
 - 그래프 보기 기능: 현재 시간 때에서 1년 전까지 주식의 변동을 그래프로 볼 수 있게 한다.
-<img src="https://github.com/2023OSSLteam/StockTrading/blob/main/img/chart1.png">
+<img src="https://github.com/2023OSSLteam/StockTrading/blob/main/img/chart1.png" width="40%" height="30%">
 
 - 주식의 변동이 아주 큰 것이 있다면 그 사유를 확인할 수 있는 기능(그래프 기능에서 그 부분만 색이 다르게 표기시킨다. 아니면 이 기능을 사용하면 사유가 있는 년/월/일이 나열되게 하고 그 중 보고 싶은 것을 선택할 수 있게 한다.)
 
