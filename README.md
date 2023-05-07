@@ -41,8 +41,10 @@ Stock Trading System란 주식 거래 시스템으로 사용자의 계좌 포트
 ### Extra Function
 
 - 구매 기능: 특정 주식을 구매할 수 있게 만들고 구매하면 그 구매한 크기만큼 보유 주식의 크기를 변환시킨다.
+<img src="https://github.com/2023OSSLteam/StockTrading/blob/main/img/%EA%B5%AC%EB%A7%A4.png" width="30%" height="20%">
 
 - 판매 기능: 특정 주식을 판매할 수 있게 만들고 판매하면 그 판매한 크기만큼 보유 주식의 크기 및 예수금 등을 변환시킨다.
+<img src="https://github.com/2023OSSLteam/StockTrading/blob/main/img/%ED%8C%90%EB%A7%A4.png" height="20%">
 
 - 그래프 보기 기능: 현재 시간 때에서 1년 전까지 주식의 변동을 그래프로 볼 수 있게 한다.
 <img src="https://github.com/2023OSSLteam/StockTrading/blob/main/img/chart1.png" width="40%" height="30%">
