@@ -69,7 +69,10 @@ Stock Trading System란 주식 거래 시스템으로 사용자의 계좌 포트
 - 종목 캔들 차트 생성
 - 고점 대비 과대 낙폭 주식 검색
 ### 김성지
-- 
+- CRUD 및 데이터 로드 세이브
+- extra function
+- makefile
+
 
 ## Development Environment
 <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=c%2B%2B&logoColor=white">
