@@ -21,7 +21,7 @@ struct Account {
 	map<string, Stock> stockOwned; // 보유 주식 데이터
 
 	int purchaseAmount = 0; // 매입 금액
-	int totalStockValue = 0; //
+	int totalStockValue = 0; // 평가 금
 	int asset = 0; // 총 자산
 	int cash = 0; // 예수금
 	int assetReturnRatio = 0; // 계좌 수익률
