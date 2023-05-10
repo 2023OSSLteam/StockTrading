@@ -10,12 +10,11 @@ using namespace std;
 map<string, vector<int>> loadAllStockData()
 {    
     string line;
-    ifstream myfile("stockdata.txt"); // 파일 경로 및 이름 입력
+    ifstream myfile("./data/stockdata.txt"); // 파일 경로 및 이름 입력
     map<string, vector<int>> stocks;
 
     if (myfile.is_open()) 
     {
-        
         while (getline(myfile, line)) 
         {
             vector<int> words; // string 타입의 벡터 생성
@@ -36,7 +35,7 @@ map<string, vector<int>> loadAllStockData()
     }
     else 
     {
-        cout << "Unable to open file";
+        cout << "Unable to open file 3" << endl;
     }
 
     return stocks;
@@ -44,12 +43,17 @@ map<string, vector<int>> loadAllStockData()
 
 void loadUserStockData(account u, map<string, vector<int>> stockdata)
 {
+    cout << u->accountID << endl;
+    cout <<"./data/userdata/"+u->accountID+".txt"<<endl;
+
     ifstream infile("./data/userdata/"+u->accountID+".txt");
 
     string line;
 
     if (infile.is_open()) 
     {
+        cout<<"open file2";
+
         while (getline(infile, line)) 
         {
             stock mystock = new Stock;
@@ -76,7 +80,7 @@ void loadUserStockData(account u, map<string, vector<int>> stockdata)
     }
     else
     {
-        cout << "Unable to open file";
+        cout << "Unable to open file 2";
     }
 
 }
@@ -89,6 +93,7 @@ vector<account> loadUserData(map<string, vector<int>> stockdata)
 
     if (infile.is_open()) 
     {
+        cout<<"open file1";
         while (getline(infile, line)) 
         {
 
@@ -100,9 +105,9 @@ vector<account> loadUserData(map<string, vector<int>> stockdata)
 
             while (iss >> word) 
             {
-                if(index == 0) line = user->owner_name;
-                else if(index == 1) line = user->accountID;
-                else if(index == 2) line = user->password;
+                if(index == 0) user->owner_name = word;
+                else if(index == 1) user->accountID = word;
+                else if(index == 2) user->password = word;
                 index++;             
             }
 
@@ -114,7 +119,7 @@ vector<account> loadUserData(map<string, vector<int>> stockdata)
     }
     else
     {
-        cout << "Unable to open file";
+        cout << "Unable to open file 1" << endl;
     }
 
     return userdata;

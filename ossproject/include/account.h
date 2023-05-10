@@ -28,13 +28,6 @@ struct Account {
 	int cash = 0; // 예수금
 	int assetReturnRatio = 0; // 계좌 수익률
 	int assetReturnValue = 0; // 계좌 수익
-
-	Account(string name, string ID, string PW) 
-	{
-		string owner_name = name;
-		string accountID = ID;
-		string password = PW;
-	}
 	~Account() {}
 };
 

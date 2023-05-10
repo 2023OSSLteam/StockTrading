@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "account.h"
+#include "data.h"
 
 
 using namespace std;
@@ -9,16 +9,18 @@ using namespace std;
 int main(int argc, char **argv) 
 {
   char c;
-  cin >> c ;
+  
   map<string, vector<int>> stocks = loadAllStockData();
   vector<account> users;
-  users = loadUserData();
+  users = loadUserData(stocks);
 
-  cout << users.begin()->owner_name << endl;
+  cout << users[0]->owner_name << endl;
+
   // load 함수 구현
   // 각 기능 단축키 설명
 
   do{
+    cin >> c ;
     switch (c) 
     {
       case 'C':
