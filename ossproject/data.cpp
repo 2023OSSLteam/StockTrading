@@ -6,6 +6,8 @@
 #include "data.h"
 #include "account.h"
 
+using namespace std;
+
 map<string, vector<int>> loadAllStockData()
 {    
     string line;
@@ -41,39 +43,82 @@ map<string, vector<int>> loadAllStockData()
     return stocks;
 }
 
-void loadUserStockData(account u)
+void loadUserStockData(account u, map<string, vector<int>> stockdata)
 {
-    ifstream infile("./data/userdata/"+u->owner_name+".csv");
+    ifstream infile("./data/userdata/"+u->accountID+".txt");
+
+    
+
+    if (infile.is_open()) 
+    {
+        while (getline(infile, line)) 
+        {
+            stock mystock = new Stock;
+            istringstream iss(line);
+            string word;
+            int index = 0;
+
+            while (iss >> word) 
+            {
+                if(index == 0) line = mystock->name;
+                else if(index == 1) line = mystock->purchase_price;
+                else if(index == 2) line = mystock->holding_amount;
+                index++;             
+            }
+            mystock->purchase_amount =  mystock->purchase_price * mystock->holding_amount;
+
+            mystock->current_price = stockdata[mystock->name].back();
+            mystock->evaluation_amount = mystock->current_price * mystock->holding_amount;
+
+            u->stockOwned[mystock->name] = mystock; 
+        }
+
+        infile.close();
+    }
+    else
+    {
+        cout << "Unable to open file";
+    }
 
 }
 
-void loadUserData(vector<account> users)
+vector<account> loadUserData(map<string, vector<int>> stockdata)
 {
-    ifstream infile("./data/userdata/user.csv");
+    ifstream infile("./data/userdata/user.txt");
     string line;
+    vector<account> userdata;
 
-    getline(infile, line);
-
-    while (getline(infile, line)) 
+    if (infile.is_open()) 
     {
-        stringstream ss(line);
-
-        account user = new Account;
-        int index = 0;
-
-        while (getline(ss, line, ',')) 
+        while (getline(infile, line)) 
         {
-            if(index == 0) line = user->owner_name;
-            else if(index == 1) line = user->accountID;
-            else if(index == 2) line = user->password;
+
+            account user = new Account;
+
+            istringstream iss(line);
+            string word;
+            int index = 0;
+
+            while (iss >> word) 
+            {
+                if(index == 0) line = user->owner_name;
+                else if(index == 1) line = user->accountID;
+                else if(index == 2) line = user->password;
+                index++;             
+            }
+
+            loadUserStockData(user, stockdata);
+            userdata.push_back(user); 
         }
-        loadUserStockData(user);
-        users.push_back(user); 
+
+        infile.close();
+    }
+    else
+    {
+        cout << "Unable to open file";
     }
 
-    infile.close();
-
-    return 0;
+    return userdata;
 }
 
 void saveUserData(vector<account> users)

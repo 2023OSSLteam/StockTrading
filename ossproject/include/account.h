@@ -19,7 +19,6 @@ struct Account {
 	string owner_name; // 이름
 	string accountID; // 계좌번호
 	string password; // 계좌 비밀번호
-	vector<string> stock_list// 보유 주식 목록
 	map<string, Stock> stockOwned; // 보유 주식 데이터
 
 	int purchaseAmount = 0; // 매입 금액
@@ -39,5 +38,5 @@ struct Account {
 };
 
 
-
+using stock = Stock* ;
 using account = Account*;

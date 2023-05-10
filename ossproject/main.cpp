@@ -10,9 +10,11 @@ int main(int argc, char **argv)
 {
   char c;
   cin >> c ;
-  map<vector> stocks;
+  map<string, vector<int>> stocks = loadAllStockData();
   vector<account> users;
-  loadUserData(vector<account> users);
+  users = loadUserData();
+
+  cout << users.begin()->owner_name << endl;
   // load 함수 구현
   // 각 기능 단축키 설명
 
