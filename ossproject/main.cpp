@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "data.h"
+#include "./include/data.h"
 
 
 using namespace std;
