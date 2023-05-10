@@ -14,7 +14,15 @@ int main(int argc, char **argv)
   vector<account> users;
   users = loadUserData(stocks);
 
-  cout << users[0]->owner_name << endl;
+  
+  cout << "Purchase Amount: " << users[0]->purchaseAmount << endl;
+  cout << "Total Stock Value: " << users[0]->totalStockValue << endl;
+  cout << "Asset: " << users[0]->assetAmount << endl;
+  cout << "Asset: " << users[0]->assetValue << endl;
+  cout << "Cash: " << users[0]->cash << endl;
+  cout << "Asset Return Ratio: " << users[0]->assetReturnRatio << "%" << endl;
+  cout << "Asset Return Value: " << users[0]->assetReturnValue << endl;
+
 
   // load 함수 구현
   // 각 기능 단축키 설명

@@ -52,28 +52,29 @@ void loadUserStockData(account u, map<string, vector<int>> stockdata)
 
     if (infile.is_open()) 
     {
-        cout<<"open file2";
-
         while (getline(infile, line)) 
         {
+            
+
             stock mystock = new Stock;
             istringstream iss(line);
             string word;
             int index = 0;
-
+            
             while (iss >> word) 
             {
-                if(index == 0) line = mystock->name;
-                else if(index == 1) line = mystock->purchase_price;
-                else if(index == 2) line = mystock->holding_amount;
+                if(index == 0) mystock->name = word;
+                else if(index == 1) mystock->purchase_price = stoi(word);
+                else if(index == 2) mystock->holding_amount = stoi(word);
                 index++;             
             }
+            
+
             mystock->purchase_amount =  mystock->purchase_price * mystock->holding_amount;
-
             mystock->current_price = stockdata[mystock->name].back();
+            
             mystock->evaluation_amount = mystock->current_price * mystock->holding_amount;
-
-            u->stockOwned[mystock->name] = mystock; 
+            u->stockOwned[mystock->name] = mystock;
         }
 
         infile.close();
@@ -108,10 +109,23 @@ vector<account> loadUserData(map<string, vector<int>> stockdata)
                 if(index == 0) user->owner_name = word;
                 else if(index == 1) user->accountID = word;
                 else if(index == 2) user->password = word;
+                else if(index == 3) user->cash = stoi(word);
                 index++;             
             }
 
             loadUserStockData(user, stockdata);
+            
+            for (auto const& [key, val] : user->stockOwned) 
+            {
+                user->purchaseAmount += val->purchase_amount ;
+                user->totalStockValue += val->evaluation_amount;
+            }
+            user->assetAmount = user->purchaseAmount + user->cash;
+            user->assetValue = user->totalStockValue + user->cash;
+            
+            user->assetReturnRatio = user->assetValue/user->assetAmount;
+            user->assetReturnValue = user->assetValue - user->assetAmount;
+
             userdata.push_back(user); 
         }
 
