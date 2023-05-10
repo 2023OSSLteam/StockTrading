@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 
+using namespace std;
+
 struct Stock {
     string name;        // 종목명
     double purchase_price;  // 매입가격
