@@ -14,12 +14,13 @@ struct Stock {
     int holding_amount;   // 보유수량
 
 };
+using stock = Stock* ;
 
 struct Account {
 	string owner_name; // 이름
 	string accountID; // 계좌번호
 	string password; // 계좌 비밀번호
-	map<string, Stock> stockOwned; // 보유 주식 데이터
+	map<string, stock> stockOwned; // 보유 주식 데이터
 
 	int purchaseAmount = 0; // 매입 금액
 	int totalStockValue = 0; // 평가 금
@@ -28,15 +29,15 @@ struct Account {
 	int assetReturnRatio = 0; // 계좌 수익률
 	int assetReturnValue = 0; // 계좌 수익
 
-	Account(string name, string ID, string password) 
+	Account(string name, string ID, string PW) 
 	{
 		string owner_name = name;
 		string accountID = ID;
-		string password = password;
+		string password = PW;
 	}
 	~Account() {}
 };
 
 
-using stock = Stock* ;
+
 using account = Account*;

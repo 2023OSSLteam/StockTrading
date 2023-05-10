@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include "data.h"
-#include "account.h"
 
 using namespace std;
 
@@ -47,7 +46,7 @@ void loadUserStockData(account u, map<string, vector<int>> stockdata)
 {
     ifstream infile("./data/userdata/"+u->accountID+".txt");
 
-    
+    string line;
 
     if (infile.is_open()) 
     {
