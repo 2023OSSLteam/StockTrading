@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -Wall -g -I./include
-OBJS = crud.o data.o main.o
-SRCS = crud.cpp data.cpp main.cpp
+OBJS = crud.o data.o main.o portfolio.o
+SRCS = crud.cpp data.cpp main.cpp portfolio.cpp
 HEADERS = $(wildcard include/*.h)
 
 all: myprogram
