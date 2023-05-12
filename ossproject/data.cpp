@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "data.h"
+#include "./include/data.h"
 
 using namespace std;
 
@@ -115,8 +115,10 @@ vector<account> loadUserData(map<string, vector<int>> stockdata)
 
             loadUserStockData(user, stockdata);
             
-            for (auto const& [key, val] : user->stockOwned) 
+            for (auto const& a : user->stockOwned) 
             {
+                auto const& key=a.first;
+                auto const& val=a.second;
                 user->purchaseAmount += val->purchase_amount ;
                 user->totalStockValue += val->evaluation_amount;
             }
