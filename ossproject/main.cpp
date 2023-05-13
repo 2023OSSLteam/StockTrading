@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 #include "data.h"
+#include "extrafunction.h"
+
 
 
 
@@ -14,7 +16,7 @@ int main(int argc, char **argv)
   map<string, vector<int>> stocks = loadAllStockData();
   vector<account> users;
   users = loadUserData(stocks);
-  viewPortfolio(users[0]);
+  //viewPortfolio(users[0]);
   /*  
   cout << "Purchase Amount: " << users[0]->purchaseAmount << endl;
   cout << "Total Stock Value: " << users[0]->totalStockValue << endl;
