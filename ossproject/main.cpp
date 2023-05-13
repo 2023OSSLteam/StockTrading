@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include "data.h"
-#include "extrafunction.h"
+
 
 
 using namespace std;
