@@ -28,23 +28,29 @@ int main(int argc, char **argv)
   // load 함수 구현
   // 각 기능 단축키 설명
 
-  do{
+do{
+    menu();
     cin >> c ;
     switch (c) 
     {
       case 'C':
+      create(&users, stocks);
         break;
 
       case 'R':
+      read(users);
         break;
 
       case 'U':
+      update(users);
         break;
 
       case 'D':
         break;
+
     }
   }while (c != 'q');
 
   return 0;
 }
+
