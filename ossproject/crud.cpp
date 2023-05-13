@@ -138,6 +138,7 @@ void read(vector<account> users){//자기 정보 읽기
 
             cout<<"user: "+users[i]->owner_name<<endl;
             cout<<"계좌번호: "+users[i]->accountID<<endl;
+            cout<<"예수금: "<<users[i]->cash<<endl;
             for(auto const& a : users[i]->stockOwned){
                 
                 auto const& val=a.second;
@@ -161,7 +162,7 @@ void read(vector<account> users){//자기 정보 읽기
 }
 
 
-void update(vector<account> users){//예수금(빼거나 더하는 형식으로), 계좌 비밀번호, 계좌 번호(다른 계좌로 바꾸는 형식), 
+void update(vector<account> users){//기존의 계좌에서 예수금이 충분한 계좌로 이동
     string name, num, password, newnum, newpassword;
     int check;//예수금 더할지 말지
     int number;
@@ -258,15 +259,19 @@ void update(vector<account> users){//예수금(빼거나 더하는 형식으로)
                     cin>>newnum;
                     cout<<"변경할 계좌비밀번호를 입력하시오: "<<endl;
                     cin>>newpassword;
-                    
+                    int newcash;
+                    cout<<"변경할 계좌에 예수금은 얼마인가?"<<endl;
+                    cin>>newcash;
+
                     string a= "./data/userdata/"+users[i]->accountID;
                     a+=".txt";
-                    cout<<a<<endl;
+
                     const char *b= a.c_str();
-                    cout<<remove(b);
+                    //cout<<remove(b); 
 
                     users[i]->accountID=newnum;
                     users[i]->password=newpassword;
+                    users[i]->cash+=newcash;
                     break;
                 }
                 else{
