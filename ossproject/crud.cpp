@@ -6,56 +6,89 @@
 #include <map>
 #include <cstring>
 #include "data.h"
-#include <iomanip>
+
 
 void menu(){
-cout<<"      <¸Ş´º>"      <<endl;
-cout<<"C: È¸¿ø°¡ÀÔ"<<endl;
-cout<<"R: ³ªÀÇ Á¤º¸ º¸±â"<<endl;
-cout<<"U: ³ªÀÇ Á¤º¸ ¼öÁ¤"<<endl;
-cout<<"D: Å»Åğ"<<endl;
-cout<<"q: Á¾·á"<<endl;
+cout<<"      <ë©”ë‰´>      "<<endl;
+cout<<"C: íšŒì›ê°€ì…"<<endl;
+cout<<"R: ë‚˜ì˜ ì •ë³´ ë³´ê¸°"<<endl;
+cout<<"U: ë‚˜ì˜ ì •ë³´ ìˆ˜ì •"<<endl;
+cout<<"D: íƒˆí‡´"<<endl;
+cout<<"q: ì¢…ë£Œ"<<endl;
 
 };
 
-void create(vector<account> *users, map<string, vector<int>> stockdata){//È¸¿ø°¡ÀÔ
+void create(vector<account> &users, map<string, vector<int>> stockdata){//íšŒì›ê°€ì…
 
-account newN = new Account;
+account newN=new Account;
 
-//±âº»
-cout<<"ÀÌ¸§À» ÀÛ¼ºÇÏ½Ã¿À.: ";
-cin>>newN->owner_name;
+//ê¸°ë³¸
 
-cout<<"°èÁÂ¹øÈ£¸¦ ÀÛ¼ºÇÏ½Ã¿À.: ";
-cin>>newN->accountID;
+    
+    cout<<"ì´ë¦„ì„ ì‘ì„±í•˜ì‹œì˜¤.: ";
+    cin>>newN->owner_name;
+  
 
-cout<<"°èÁÂ ºñ¹Ğ¹øÈ£¸¦ ÀÛ¼ºÇÏ½Ã¿À.: ";
+
+while(1){
+    int b=0;
+    cout<<"ê³„ì¢Œë²ˆí˜¸ë¥¼ ì‘ì„±í•˜ì‹œì˜¤.: ";
+    cin>>newN->accountID;
+    for(int i=0; i<users.size() ; i++){
+        if(users[i]->accountID.compare(newN->accountID)==0){
+            cout<<"ë™ì¼í•œ ê³„ì¢Œë²ˆí˜¸ê°€ ìˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”."<<endl;
+            cin.clear();
+            cin.ignore(256,'\n');
+            b++;
+        }
+    }
+    if(b==0){
+        break;
+    }
+}
+
+cout<<"ê³„ì¢Œ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì‘ì„±í•˜ì‹œì˜¤.: ";
 cin>>newN->password;
 
-cout<<"¿¹¼ö±İÀº ¾ó¸¶ÀÔ´Ï±î?";
+cout<<"ì˜ˆìˆ˜ê¸ˆì€ ì–¼ë§ˆì…ë‹ˆê¹Œ?";
 cin>>newN->cash;
 
 
 //stock
 char y_n;
-cout<<"°¡Áö°í ÀÖ´Â ÁÖ½ÄÀº ÀÖ½À´Ï±î?(¿¹: y ¾Æ´Ï¿ä: n)";
+cout<<"ê°€ì§€ê³  ìˆëŠ” ì£¼ì‹ì€ ìˆìŠµë‹ˆê¹Œ?(ì˜ˆ: y ì•„ë‹ˆìš”: n)";
 cin>>y_n;
 
 
 
     while(y_n=='Y' || y_n=='y'){
         stock newstock= new Stock;
-        string a;//È¸»ç ÀÌ¸§
+        string a;//íšŒì‚¬ ì´ë¦„
 
-        cout<<"°¡Áö°í ÀÖ´Â ÁÖ½ÄÀÇ ±â¾÷Àº?: ";
-        cin>>newstock->name;
+        while(1){
+            int b=0;
+            cout<<"ê°€ì§€ê³  ìˆëŠ” ì£¼ì‹ì˜ ê¸°ì—…ì€?: ";
+            cin>>newstock->name;
+            for(auto const& a : stockdata){
+                auto const& val=a.first;
+                if((val).compare(newstock->name)==0){
+                    b++;
+                    break;
+                }
+            }
+
+            if(b!=0){
+                break;
+            }
+            cout<<"ì €í¬ê°€ ê°€ì§€ê³  ìˆì§€ ì•ŠëŠ” ì£¼ì‹ì…ë‹ˆë‹¤."<<endl;
+        }
 
 
-        cout<<"±× ÁÖ½ÄÀÇ ¸ÅÀÔ °¡°İÀº?: ";
+        cout<<"ê·¸ ì£¼ì‹ì˜ ë§¤ì… ê°€ê²©ì€?: ";
         cin>>newstock->purchase_price;
 
 
-        cout<<"±× ÁÖ½ÄÀÇ º¸À¯¼ö·®Àº?: ";
+        cout<<"ê·¸ ì£¼ì‹ì˜ ë³´ìœ ìˆ˜ëŸ‰ì€?: ";
         cin>>newstock->holding_amount;
 
 
@@ -72,7 +105,7 @@ cin>>y_n;
         newN->stockOwned[a]=newstock;
 
         while(1){
-            cout<<"±× ¿ÜÀÇ ÁÖ½ÄÀº ´õ ÀÖ½À´Ï±î?(¿¹:y ¾Æ´Ï¿À:n)";
+            cout<<"ê·¸ ì™¸ì˜ ì£¼ì‹ì€ ë” ìˆìŠµë‹ˆê¹Œ?(ì˜ˆ:y ì•„ë‹ˆì˜¤:n)";
             cin>>y_n;
 
             if(y_n=='N' || y_n=='n'){
@@ -82,12 +115,12 @@ cin>>y_n;
                 break;
             }
             else if(cin.fail()){
-                cout<<"Àß¸øÀÔ·ÂÇÏ¿´½À´Ï´Ù."<<endl;
+                cout<<"ì˜ëª»ì…ë ¥í•˜ì˜€ìŠµë‹ˆë‹¤."<<endl;
                 cin.clear();
                 cin.ignore(256,'\n');
             }
             else{
-                cout<<"Àß¸øÀÔ·ÂÇÏ¿´½À´Ï´Ù."<<endl;
+                cout<<"ì˜ëª»ì…ë ¥í•˜ì˜€ìŠµë‹ˆë‹¤."<<endl;
                 cin.clear();
                 cin.ignore(256,'\n');
             }
@@ -97,7 +130,7 @@ cin>>y_n;
         }
 
 }
-//stock¸¦ ÀÌ¿ëÇÏ¿© ³ª¸ÓÁö accountÃ¤¿ì±â
+//stockë¥¼ ì´ìš©í•˜ì—¬ ë‚˜ë¨¸ì§€ accountì±„ìš°ê¸°
 
 for(auto const& a : newN->stockOwned){
     auto const& key=a.first;
@@ -111,24 +144,24 @@ newN->assetValue = newN->totalStockValue + newN->cash;
 newN->assetReturnRatio = newN->assetValue/newN->assetAmount;
 newN->assetReturnValue = newN->assetValue - newN->assetAmount;
 
-users->push_back(newN);//users¿¡ »õ·Î ¸¸µç È¸¿ø ³Ö±â
+users.push_back(newN);//usersì— ìƒˆë¡œ ë§Œë“  íšŒì› ë„£ê¸°
 
 }
 
 
 
-void read(vector<account> users){//ÀÚ±â Á¤º¸ ÀĞ±â
+void read(vector<account> users){//ìê¸° ì •ë³´ ì½ê¸°
     string name;
-    string number;//°èÁÂ¹øÈ£
-    string pass;//ÆĞ½º¿öµå
+    string number;//ê³„ì¢Œë²ˆí˜¸
+    string pass;//íŒ¨ìŠ¤ì›Œë“œ
     int y_n=0;
 
-    cout<<"¼­¸í, °èÁÂ¹øÈ£, °èÁÂºñ¹Ğ¹øÈ£¸¦ ÀÛ¼ºÇÏ½Ã¿À."<<endl;
-    cout<<"¼­¸í: ";
+    cout<<"ì„œëª…, ê³„ì¢Œë²ˆí˜¸, ê³„ì¢Œë¹„ë°€ë²ˆí˜¸ë¥¼ ì‘ì„±í•˜ì‹œì˜¤."<<endl;
+    cout<<"ì„œëª…: ";
     cin>>name;
-    cout<<"°èÁÂ¹øÈ£: ";
+    cout<<"ê³„ì¢Œë²ˆí˜¸: ";
     cin>>number;
-    cout<<"°èÁÂºñ¹Ğ¹øÈ£: ";  
+    cout<<"ê³„ì¢Œë¹„ë°€ë²ˆí˜¸: ";  
     cin>>pass;
 
 
@@ -137,19 +170,20 @@ void read(vector<account> users){//ÀÚ±â Á¤º¸ ÀĞ±â
         if(users[i]->owner_name.compare(name)==0 && users[i]->accountID.compare(number)==0 && users[i]->password.compare(pass)==0){
 
             cout<<"user: "+users[i]->owner_name<<endl;
-            cout<<"°èÁÂ¹øÈ£: "+users[i]->accountID<<endl;
-            cout<<"¿¹¼ö±İ: "<<users[i]->cash<<endl;
+            cout<<"ê³„ì¢Œë²ˆí˜¸: "+users[i]->accountID<<endl;
+            cout<<"ì˜ˆìˆ˜ê¸ˆ: "<<users[i]->cash<<endl;
             for(auto const& a : users[i]->stockOwned){
                 
                 auto const& val=a.second;
-                cout<<"±â¾÷: ";
+                cout<<"ê¸°ì—…: ";
                 cout<<val->name<<endl;
-                cout<<"ÇöÀç ±İ¾×: ";
-                cout<<val->current_price << std::setprecision(0) <<endl;
-                cout<<"º¸À¯ ¼ö·®: ";
+                cout<<"í˜„ì¬ ê¸ˆì•¡: ";
+                cout<<val->current_price<<endl;
+                cout<<"ë³´ìœ  ìˆ˜ëŸ‰: ";
                 cout<<val->holding_amount<<endl;
-                cout<<"Æò°¡±İ¾×: ";
-                cout<< std::fixed << val->evaluation_amount<< std::setprecision(0)<<endl;
+                cout<<"í‰ê°€ê¸ˆì•¡: ";
+                cout.precision(0);
+                cout<<fixed<<val->evaluation_amount<<endl;
             }
             y_n++;
             break;
@@ -157,70 +191,70 @@ void read(vector<account> users){//ÀÚ±â Á¤º¸ ÀĞ±â
     }
 
     if(y_n == 0){
-        cout<<"Á¤º¸¸¦ Àß¸ø ÀÔ·ÂÇÏ¿´°Å³ª ¾ø´Â Á¤º¸ÀÔ´Ï´Ù. ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä."<<endl;
+        cout<<"ì •ë³´ë¥¼ ì˜ëª» ì…ë ¥í•˜ì˜€ê±°ë‚˜ ì—†ëŠ” ì •ë³´ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”."<<endl;
     }
 }
 
 
-void update(vector<account> users){//±âÁ¸ÀÇ °èÁÂ¿¡¼­ ¿¹¼ö±İÀÌ ÃæºĞÇÑ °èÁÂ·Î ÀÌµ¿
+void update(vector<account> users){//ê¸°ì¡´ì˜ ê³„ì¢Œì—ì„œ ì˜ˆìˆ˜ê¸ˆì´ ì¶©ë¶„í•œ ê³„ì¢Œë¡œ ì´ë™
     string name, num, password, newnum, newpassword;
-    int check;//¿¹¼ö±İ ´õÇÒÁö ¸»Áö
+    int check;//ì˜ˆìˆ˜ê¸ˆ ë”í• ì§€ ë§ì§€
     int number;
     int move;
     int out=0;
     while(1){
-        cout<<"0. ³ª°¡±â"<<endl<<"1.¿¹¼ö±İ ÀÌµ¿"<<endl<<"2.°èÁÂº¯°æ"<<endl<<"¹«¾ùÀ» ÇÏ½Ã°Ú½À´Ï±î?: ";
+        cout<<"0. ë‚˜ê°€ê¸°"<<endl<<"1.ì˜ˆìˆ˜ê¸ˆ ì´ë™"<<endl<<"2.ê³„ì¢Œë³€ê²½"<<endl<<"ë¬´ì—‡ì„ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?: ";
         cin>>number;
         if(number==1){
-            cout<<"ÀÌ¸§À» ÀÔ·ÂÇÏ½Ã¿À"<<endl;
+            cout<<"ì´ë¦„ì„ ì…ë ¥í•˜ì‹œì˜¤"<<endl;
             cin>>name;
-            cout<<"°èÁÂ¹øÈ£¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À: "<<endl;
+            cout<<"ê³„ì¢Œë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤: "<<endl;
             cin>>num;
-            cout<<"°èÁÂºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ½Ã¿À: "<<endl;
+            cout<<"ê³„ì¢Œë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì‹œì˜¤: "<<endl;
             cin>>password;
 
             for(int i=0; i<users.size();i++){
                 if(users[i]->owner_name.compare(name)==0 && users[i]->accountID.compare(num)==0 && users[i]->password.compare(password)==0){
-                    cout<<"±İ¾×À» Ãß°¡ÇÒ °ÍÀÔ´Ï±î? »¬ °ÍÀÔ´Ï±î?(Ãß°¡:1, Á¦°Å:0)";
+                    cout<<"ê¸ˆì•¡ì„ ì¶”ê°€í•  ê²ƒì…ë‹ˆê¹Œ? ëº„ ê²ƒì…ë‹ˆê¹Œ?(ì¶”ê°€:1, ì œê±°:0)";
                     cin>>check;
                     if(check==1){
-                        cout<<"¾ó¸¶¸¦ ³ÖÀ» °ÍÀÔ´Ï±î?";
+                        cout<<"ì–¼ë§ˆë¥¼ ë„£ì„ ê²ƒì…ë‹ˆê¹Œ?";
                         cin>>move;
                         if(move<0){
-                            cout<<"À½¼ö¸¦ ³ÖÀ» ¼ö ¾ø½À´Ï´Ù. ¾ç¼ö¸¦ ÀÔ·ÂÇÏ¼¼¿ä."<<endl;
+                            cout<<"ìŒìˆ˜ë¥¼ ë„£ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ì–‘ìˆ˜ë¥¼ ì…ë ¥í•˜ì„¸ìš”."<<endl;
                             break;
                         }
                         else if(move==0){
-                            cout<<"0¿øÀ» ³ÖÀ» ¼ö ¾ø½À´Ï´Ù. ¾ç¼ö¸¦ ÀÔ·ÂÇÏ¼¼¿ä."<<endl;
+                            cout<<"0ì›ì„ ë„£ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ì–‘ìˆ˜ë¥¼ ì…ë ¥í•˜ì„¸ìš”."<<endl;
                             break;
                         }
                         else if(move>0){
                             users[i]->cash+=move;
-                            cout<<"ÃæÀüµÇ¾ú½À´Ï´Ù."<<endl;
+                            cout<<"ì¶©ì „ë˜ì—ˆìŠµë‹ˆë‹¤."<<endl;
                             break;
                         }
                         else if(cin.fail()){
-                            cout<<"¼ıÀÚ¸¦ ÀÔ·ÂÇÏ½Ã¿À."<<endl;
+                            cout<<"ìˆ«ìë¥¼ ì…ë ¥í•˜ì‹œì˜¤."<<endl;
                             break;
                         }
                         else{
-                            cout<<"¾Ë ¼ö ¾ø´Â ¿À·ù"<<endl;
+                            cout<<"ì•Œ ìˆ˜ ì—†ëŠ” ì˜¤ë¥˜"<<endl;
                             break;
                         }
                     }
                     else if(check==0){
-                        cout<<"¾ó¸¶¸¦ ÀÌµ¿ÇÏ½Ã°Ú½À´Ï±î?(¿¹¼ö±İ:"+users[i]->cash<<"): ";
+                        cout<<"ì–¼ë§ˆë¥¼ ì´ë™í•˜ì‹œê² ìŠµë‹ˆê¹Œ?(ì˜ˆìˆ˜ê¸ˆ:"+users[i]->cash<<"): ";
                         cin>>move;
                         if(move>users[i]->cash){
-                            cout<<"±İ¾×À» ÃÊ°úÇÏ¿´½À´Ï´Ù."<<endl;
+                            cout<<"ê¸ˆì•¡ì„ ì´ˆê³¼í•˜ì˜€ìŠµë‹ˆë‹¤."<<endl;
                             break;
                         }
                         else if(move<0){
-                            cout<<"¾ç¼ö¸¦ ³Ö¾î¾ß ÇÕ´Ï´Ù."<<endl;
+                            cout<<"ì–‘ìˆ˜ë¥¼ ë„£ì–´ì•¼ í•©ë‹ˆë‹¤."<<endl;
                             break;
                         }
                         else if(cin.fail()){
-                            cout<<"Á¤¼ö°¡ ¾Æ´Ñ ¼ö, È¤Àº ¹®ÀÚ´Â ÀÔ·Â¹ŞÀ» ¼ö ¾ø½À´Ï´Ù."<<endl;
+                            cout<<"ì •ìˆ˜ê°€ ì•„ë‹Œ ìˆ˜, í˜¹ì€ ë¬¸ìëŠ” ì…ë ¥ë°›ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."<<endl;
                             break;
                         }
                         else if(move>=0 && move<=users[i]->cash){
@@ -228,15 +262,15 @@ void update(vector<account> users){//±âÁ¸ÀÇ °èÁÂ¿¡¼­ ¿¹¼ö±İÀÌ ÃæºĞÇÑ °èÁÂ·Î ÀÌµ¿
                             break;
                         }
                         else{
-                            cout<<"¾Ë ¼ö ¾ø´Â ¿À·ù"<<endl;
+                            cout<<"ì•Œ ìˆ˜ ì—†ëŠ” ì˜¤ë¥˜"<<endl;
                             break;
                         }
                     }
                     else if(cin.fail()){
-                        cout<<"¼ıÀÚ¸¦ ÀÔ·ÂÇÏ½Ã¿À."<<endl;
+                        cout<<"ìˆ«ìë¥¼ ì…ë ¥í•˜ì‹œì˜¤."<<endl;
                     }
                     else{
-                        cout<<"¾Ë ¼ö ¾ø´Â ¿À·ù"<<endl;
+                        cout<<"ì•Œ ìˆ˜ ì—†ëŠ” ì˜¤ë¥˜"<<endl;
                     }
 
 
@@ -246,21 +280,38 @@ void update(vector<account> users){//±âÁ¸ÀÇ °èÁÂ¿¡¼­ ¿¹¼ö±İÀÌ ÃæºĞÇÑ °èÁÂ·Î ÀÌµ¿
             }
         }
         else if(number==2){
-            cout<<"ÀÌ¸§À» ÀÔ·ÂÇÏ½Ã¿À"<<endl;
+            cout<<"ì´ë¦„ì„ ì…ë ¥í•˜ì‹œì˜¤"<<endl;
             cin>>name;
-            cout<<"°èÁÂ¹øÈ£¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À: "<<endl;
+            cout<<"ê³„ì¢Œë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤: "<<endl;
             cin>>num;
-            cout<<"°èÁÂºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ½Ã¿À: "<<endl;
+            cout<<"ê³„ì¢Œë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì‹œì˜¤: "<<endl;
             cin>>password;
 
             for(int i=0; i<users.size(); i++){
                 if(users[i]->owner_name.compare(name)==0 && users[i]->accountID.compare(num)==0 && users[i]->password.compare(password)==0){
-                    cout<<"º¯°æÇÒ °èÁÂ¹øÈ£¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À: "<<endl;
-                    cin>>newnum;
-                    cout<<"º¯°æÇÒ °èÁÂºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ½Ã¿À: "<<endl;
+                    while(1){
+                        int b=0;
+                        cout<<"ë³€ê²½í•  ê³„ì¢Œë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤: "<<endl;
+                        cin>>newnum;
+                        for(int i=0; i<users.size() ; i++){
+                            if(users[i]->accountID.compare(newnum)==0){
+                                cout<<"ë™ì¼í•œ ê³„ì¢Œë²ˆí˜¸ê°€ ìˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”."<<endl;
+                                cin.clear();
+                                cin.ignore(256,'\n');
+                                b++;
+                            }
+                        }
+                        if(b==0){
+                            break;
+                        }
+                    
+                    }
+                    
+                    
+                    cout<<"ë³€ê²½í•  ê³„ì¢Œë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì‹œì˜¤: "<<endl;
                     cin>>newpassword;
                     int newcash;
-                    cout<<"º¯°æÇÒ °èÁÂ¿¡ ¿¹¼ö±İÀº ¾ó¸¶ÀÎ°¡?"<<endl;
+                    cout<<"ë³€ê²½í•  ê³„ì¢Œì— ì˜ˆìˆ˜ê¸ˆì€ ì–¼ë§ˆì¸ê°€?"<<endl;
                     cin>>newcash;
 
                     string a= "./data/userdata/"+users[i]->accountID;
@@ -275,12 +326,12 @@ void update(vector<account> users){//±âÁ¸ÀÇ °èÁÂ¿¡¼­ ¿¹¼ö±İÀÌ ÃæºĞÇÑ °èÁÂ·Î ÀÌµ¿
                     break;
                 }
                 else{
-                    cout<<"Á¤º¸°¡ ¾ø½À´Ï´Ù."<<endl;
+                    cout<<"ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤."<<endl;
                 }
             }
         }
         else if(cin.fail()){
-            cout<<"Àß¸øÀÔ·ÂÇÏ¿´½À´Ï´Ù."<<endl;
+            cout<<"ì˜ëª»ì…ë ¥í•˜ì˜€ìŠµë‹ˆë‹¤."<<endl;
             cin.clear();
             cin.ignore(256,'\n');
 
@@ -289,11 +340,11 @@ void update(vector<account> users){//±âÁ¸ÀÇ °èÁÂ¿¡¼­ ¿¹¼ö±İÀÌ ÃæºĞÇÑ °èÁÂ·Î ÀÌµ¿
             break;
         }
         else{
-            cout<<"Àß¸øÀÔ·ÂÇÏ¿´½À´Ï´Ù."<<endl;
+            cout<<"ì˜ëª»ì…ë ¥í•˜ì˜€ìŠµë‹ˆë‹¤."<<endl;
             cin.clear();
             cin.ignore(256,'\n');
         }
-    cout<<"³¡³»½Ã°Ú½À´Ï±î?(¿¹:1 ¾Æ´Ï¿À:0): ";
+    cout<<"ëë‚´ì‹œê² ìŠµë‹ˆê¹Œ?(ì˜ˆ:1 ì•„ë‹ˆì˜¤:0): ";
     cin>>out;
     if(out==1){
         break;
@@ -304,7 +355,7 @@ void update(vector<account> users){//±âÁ¸ÀÇ °èÁÂ¿¡¼­ ¿¹¼ö±İÀÌ ÃæºĞÇÑ °èÁÂ·Î ÀÌµ¿
 
 
 
-void delte(){//Å»Åğ
+void delte(){//íƒˆí‡´
 
 
 
