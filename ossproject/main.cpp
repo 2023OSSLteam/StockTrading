@@ -54,6 +54,7 @@ do{
     }
   }while (c != 'q');
 
+  save(users);
   return 0;
 }
 
