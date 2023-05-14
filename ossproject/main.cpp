@@ -48,6 +48,7 @@ do{
         break;
 
       case 'D':
+        del(users);
         break;
 
     }
