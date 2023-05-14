@@ -32,19 +32,20 @@ int main(int argc, char **argv)
 
 do{
     menu();
+    
     cin >> c ;
     switch (c) 
     {
       case 'C':
-      create(&users, stocks);
+        create(users, stocks);
         break;
 
       case 'R':
-      read(users);
+        read(users);
         break;
 
       case 'U':
-      update(users);
+        update(users);
         break;
 
       case 'D':
