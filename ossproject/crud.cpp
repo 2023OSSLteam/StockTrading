@@ -355,8 +355,40 @@ void update(vector<account> users){//기존의 계좌에서 예수금이 충분�
 
 
 
-void delte(){//탈퇴
+void del(vector<account> &users){//탈퇴
+    string name, ID, password;
+    cout<<"이름을 작성하시오.: ";
+    cin>>name;
+    cout<<"계좌번호를 작성하시오.: ";
+    cin>>ID;
+    cout<<"비밀번호를 작성하시오.: ";
+    cin>>password;
 
+    int check=0;
+    for(int i=0; i<users.size(); i++){
+        int y_n;
+        cout<<"정말로 탈퇴하시겠습니까?(예:1 아니오:0): ";
+        cin>>y_n;
+        if(y_n==1){
+            if(name.compare(users[i]->owner_name)==0 && ID.compare(users[i]->accountID)==0 && password.compare(users[i]->password)==0){
+                users.erase(users.begin()+i);
+                string a= "./data/userdata/"+users[i]->accountID;
+                a+=".txt";
 
+                const char *b= a.c_str();
+                //cout<<remove(b); 
+                cout<<"삭제되었습니다."<<endl;
+                check++;
+                break;
+            }
+        }
+        else{
+            cout<<"취소되었습니다."<<endl;
+            break;
+        }
+    }
 
+    if(check==0){
+        cout<<"일치하는 정보가 없습니다."<<endl;
+    }
 }
