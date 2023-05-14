@@ -12,3 +12,4 @@ void create (vector<account> *users,map<string, vector<int>> stockdata);
 void read(vector<account> users);
 void update(vector<account> users);
 void del(vector<account> &users);
+void save(vector<account> users);
