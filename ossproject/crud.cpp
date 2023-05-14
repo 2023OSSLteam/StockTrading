@@ -102,7 +102,7 @@ cin>>y_n;
 
 
 
-        newN->stockOwned[a]=newstock;
+        newN->stockOwned[newstock->name]=newstock;
 
         while(1){
             cout<<"그 외의 주식은 더 있습니까?(예:y 아니오:n)";
@@ -128,7 +128,8 @@ cin>>y_n;
         if(y_n=='N' || y_n=='n'){
             break;
         }
-
+cin.clear();
+cin.ignore(256,'\n');
 }
 //stock를 이용하여 나머지 account채우기
 
@@ -391,4 +392,26 @@ void del(vector<account> &users){//탈퇴
     if(check==0){
         cout<<"일치하는 정보가 없습니다."<<endl;
     }
+}
+
+
+void save(vector<account> users){
+    string a;
+    ofstream user("./data/userdata/user.txt", ios_base::in);
+    for(int i=0; i<users.size();i++){
+        user<<users[i]->owner_name<<"  ";
+        user<<users[i]->accountID<<"  ";
+        user<<users[i]->password<<"  ";
+        user<<users[i]->cash<<endl;
+        ofstream ID("./data/userdata/"+users[i]->accountID+".txt");
+        for(auto const& a : users[i]->stockOwned){
+            auto const& val=a.second;
+            ID<<val->name<<"  ";
+            ID<<val->purchase_price<<"  ";
+            ID<<val->holding_amount<<endl;
+            
+        }
+        ID.close();
+    }
+    user.close();
 }
