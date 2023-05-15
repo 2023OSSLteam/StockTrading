@@ -198,6 +198,79 @@ void read(vector<account> users){//자기 정보 읽기
 }
 
 
+int readall(vector<account> users){
+    int a;
+    string name;
+    string number;//계좌번호
+    string pass;//패스워드
+    int y_n=0;
+
+    cout<<"서명, 계좌번호, 계좌비밀번호를 작성하시오."<<endl;
+    cout<<"서명: ";
+    cin>>name;
+    cout<<"계좌번호: ";
+    cin>>number;
+    cout<<"계좌비밀번호: ";  
+    cin>>pass;
+
+    if(name.compare("김성은")==0 && number.compare("1234-5678")==0 && pass.compare("0119")==0){
+            for(int i=0; i<users.size(); i++){
+            cout<<endl<<endl;
+            cout<<"user: "+users[i]->owner_name<<endl;
+            cout<<"계좌번호: "+users[i]->accountID<<endl;
+            cout<<"예수금: "<<users[i]->cash<<endl;
+            for(auto const& a : users[i]->stockOwned){
+                cout<<endl;
+                auto const& val=a.second;
+                cout<<"기업: ";
+                cout<<val->name<<endl;
+                cout<<"현재 금액: ";
+                cout<<val->current_price<<endl;
+                cout<<"보유 수량: ";
+                cout<<val->holding_amount<<endl;
+                cout<<"평가금액: ";
+                cout.precision(0);
+                cout<<fixed<<val->evaluation_amount<<endl;
+            }
+            a++;
+            y_n++;
+        
+    }
+    }
+    else if(name.compare("김성지")==0 && number.compare("12345-6789")==0 && pass.compare("1234")==0){
+        for(int i=0; i<users.size(); i++){
+            cout<<endl<<endl;
+            cout<<"user: "+users[i]->owner_name<<endl;
+            cout<<"계좌번호: "+users[i]->accountID<<endl;
+            cout<<"예수금: "<<users[i]->cash<<endl;
+            for(auto const& a : users[i]->stockOwned){
+                cout<<endl;
+                auto const& val=a.second;
+                cout<<"기업: ";
+                cout<<val->name<<endl;
+                cout<<"현재 금액: ";
+                cout<<val->current_price<<endl;
+                cout<<"보유 수량: ";
+                cout<<val->holding_amount<<endl;
+                cout<<"평가금액: ";
+                cout.precision(0);
+                cout<<fixed<<val->evaluation_amount<<endl;
+            }
+            a++;
+            y_n++;
+        
+    }
+
+    }
+    else{
+        cout<<"강제종료 집행"<<endl;
+    }
+    return a;
+}
+
+
+
+
 void update(vector<account> users){//기존의 계좌에서 예수금이 충분한 계좌로 이동
     string name, num, password, newnum, newpassword;
     int check;//예수금 더할지 말지
