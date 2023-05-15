@@ -1,16 +1,16 @@
 CC = g++
 CFLAGS = -Wall -g -I./include
-OBJS = crud.o data.o main.o portfolio.o
-SRCS = crud.cpp data.cpp main.cpp portfolio.cpp
+OBJS = crud.o data.o main.o extrafunction.o
+SRCS = crud.cpp data.cpp main.cpp extrafunction.cpp
 HEADERS = $(wildcard include/*.h)
 
-all: myprogram
+all: stocktrading
 
-myprogram: $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o myprogram
+stocktrading: $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o stocktrading
 
 $(OBJS): $(SRCS) $(HEADERS)
 	$(CC) $(CFLAGS) -c $(SRCS)
 
 clean:
-	rm -f $(OBJS) myprogram
+	rm -f $(OBJS) stocktrading
