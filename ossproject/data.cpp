@@ -43,9 +43,6 @@ map<string, vector<int>> loadAllStockData()
 
 void loadUserStockData(account u, map<string, vector<int>> stockdata)
 {
-    cout << u->accountID << endl;
-    cout <<"./data/userdata/"+u->accountID+".txt"<<endl;
-
     ifstream infile("./data/userdata/"+u->accountID+".txt");
 
     string line;

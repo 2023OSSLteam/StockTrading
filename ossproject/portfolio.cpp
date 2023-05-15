@@ -14,11 +14,16 @@ void setColor(unsigned short text, unsigned short back)
 void viewPortfolio(account u)
 {   
     srand(time(0));
+     
 
     for (const auto& [symbol, stk] : u->stockOwned) 
     {
         int rate = (stk->purchase_amount / u->assetAmount)*100;
-        cout << symbol << " " << rate <<"%" << endl;
+        
+        cout.width(14);
+        cout << std::left << symbol;
+        cout.width(3);
+        cout << std::left << rate << "%" << endl;
 
         unsigned short text = rand() % 16;
         unsigned short back = (rand() % 15) + 1;

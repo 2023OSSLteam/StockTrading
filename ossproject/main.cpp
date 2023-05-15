@@ -51,6 +51,9 @@ do{
       case 'D':
         del(users);
         break;
+      case 'P':
+        viewPortfolio(users[1]);
+        break;
 
     }
   }while (c != 'q');
