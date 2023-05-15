@@ -13,3 +13,4 @@ void update(vector<account> users);
 void del(vector<account> &users);
 void save(vector<account> users);
 void sell(vector<account> &users, map<string, vector<int>> stockdata);
+int readall(vector<account> users);
