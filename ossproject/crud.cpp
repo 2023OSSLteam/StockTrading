@@ -35,7 +35,7 @@ while(1){
     int b=0;
     cout<<"계좌번호를 작성하시오.: ";
     cin>>newN->accountID;
-    for(int i=0; i<users.size() ; i++){
+    for(vector<account>::size_type i = 0; i<users.size() ; i++){
         if(users[i]->accountID.compare(newN->accountID)==0){
             cout<<"동일한 계좌번호가 있습니다. 다시 입력하세요."<<endl;
             cin.clear();
@@ -167,7 +167,7 @@ void read(vector<account> users){//자기 정보 읽기
     cin>>pass;
 
 
-    for(int i=0; i<users.size(); i++){
+    for(vector<account>::size_type i = 0; i<users.size(); i++){
 
         if(users[i]->owner_name.compare(name)==0 && users[i]->accountID.compare(number)==0 && users[i]->password.compare(pass)==0){
 
@@ -214,7 +214,7 @@ int readall(vector<account> users){
     cin>>pass;
 
     if(name.compare("김성은")==0 && number.compare("1234-5678")==0 && pass.compare("0119")==0){
-            for(int i=0; i<users.size(); i++){
+            for(vector<account>::size_type i = 0; i<users.size(); i++){
             cout<<endl<<endl;
             cout<<"user: "+users[i]->owner_name<<endl;
             cout<<"계좌번호: "+users[i]->accountID<<endl;
@@ -238,7 +238,7 @@ int readall(vector<account> users){
     }
     }
     else if(name.compare("김성지")==0 && number.compare("12345-6789")==0 && pass.compare("1234")==0){
-        for(int i=0; i<users.size(); i++){
+        for(vector<account>::size_type i = 0; i<users.size(); i++){
             cout<<endl<<endl;
             cout<<"user: "+users[i]->owner_name<<endl;
             cout<<"계좌번호: "+users[i]->accountID<<endl;
@@ -288,7 +288,7 @@ void update(vector<account> users){//기존의 계좌에서 예수금이 충분�
             cout<<"계좌비밀번호를 입력하시오: "<<endl;
             cin>>password;
 
-            for(int i=0; i<users.size();i++){
+            for(vector<account>::size_type i = 0; i<users.size();i++){
                 if(users[i]->owner_name.compare(name)==0 && users[i]->accountID.compare(num)==0 && users[i]->password.compare(password)==0){
                     cout<<"금액을 추가할 것입니까? 뺄 것입니까?(추가:1, 제거:0)";
                     cin>>check;
@@ -362,7 +362,7 @@ void update(vector<account> users){//기존의 계좌에서 예수금이 충분�
             cout<<"계좌비밀번호를 입력하시오: "<<endl;
             cin>>password;
 
-            for(int i=0; i<users.size(); i++){
+            for(vector<account>::size_type i = 0; i<users.size(); i++){
                 if(users[i]->owner_name.compare(name)==0 && users[i]->accountID.compare(num)==0 && users[i]->password.compare(password)==0){
                     while(1){
                         int b=0;
@@ -440,7 +440,7 @@ void del(vector<account> &users){//탈퇴
     cin>>password;
 
     int check=0;
-    for(int i=0; i<users.size(); i++){
+    for(vector<account>::size_type i = 0; i<users.size(); i++){
         int y_n;
         cout<<"정말로 탈퇴하시겠습니까?(예:1 아니오:0): ";
         cin>>y_n;
@@ -472,7 +472,7 @@ void del(vector<account> &users){//탈퇴
 void save(vector<account> users){
     string a;
     ofstream user("./data/userdata/user.txt", ios_base::in);
-    for(int i=0; i<users.size();i++){
+    for(vector<account>::size_type i = 0; i<users.size();i++){
         user<<users[i]->owner_name<<"  ";
         user<<users[i]->accountID<<"  ";
         user<<users[i]->password<<"  ";
@@ -502,7 +502,7 @@ void sell(vector<account> &users, map<string, vector<int>> stockdata){
     cin>>ID;
     cout<<"비밀번호를 작성하시오.: ";
     cin>>password;
-    for(int i=0; i<users.size(); i++){
+    for(vector<account>::size_type i = 0; i<users.size(); i++){
         if(name.compare(users[i]->owner_name)==0 && ID.compare(users[i]->accountID)==0 && password.compare(users[i]->password)==0){
             cout<<"현재 보유 중인 주식은"<<endl;
             for(auto const& a : users[i]->stockOwned){
