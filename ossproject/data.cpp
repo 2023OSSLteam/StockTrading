@@ -113,7 +113,7 @@ vector<account> loadUserData(map<string, vector<int>> stockdata)
             
             for (auto const& [key, val] : user->stockOwned) 
             {
-                user->purchaseAmount += val->purchase_amount ;
+                user->purchaseAmount += val->purchase_amount;
                 user->totalStockValue += val->evaluation_amount;
             }
             user->assetAmount = user->purchaseAmount + user->cash;

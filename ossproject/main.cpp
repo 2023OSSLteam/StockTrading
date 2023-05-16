@@ -5,11 +5,9 @@
 #include "extrafunction.h"
 
 
-
-
 using namespace std;
 
-int main(int argc, char **argv) 
+int main(int argc, char **argv)
 {
   char c;
   int pflag = 0;
@@ -66,6 +64,10 @@ int main(int argc, char **argv)
         
       case 'A':
         readall(users);
+        break;
+      
+      case 'N':
+        goNextDay(stocks, users);
         break;
         /*
         string a;
