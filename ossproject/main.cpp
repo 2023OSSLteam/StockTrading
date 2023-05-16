@@ -12,25 +12,16 @@ using namespace std;
 int main(int argc, char **argv) 
 {
   char c;
-  
+  int pflag = 0;
+
+  string portAccount;
+
   map<string, vector<int>> stocks = loadAllStockData();
   vector<account> users;
+  
   users = loadUserData(stocks);
-  //viewPortfolio(users[0]);
-  /*  
-  cout << "Purchase Amount: " << users[0]->purchaseAmount << endl;
-  cout << "Total Stock Value: " << users[0]->totalStockValue << endl;
-  cout << "Asset: " << users[0]->assetAmount << endl;
-  cout << "Asset: " << users[0]->assetValue << endl;
-  cout << "Cash: " << users[0]->cash << endl;
-  cout << "Asset Return Ratio: " << users[0]->assetReturnRatio << "%" << endl;
-  cout << "Asset Return Value: " << users[0]->assetReturnValue << endl;
-  */
 
-  // load í•¨ìˆ˜ êµ¬í˜„
-  // ê° ê¸°ëŠ¥ ë‹¨ì¶•í‚¤ ì„¤ëª…
-
-do{
+  do{
     menu();
     
     cin >> c ;
@@ -52,18 +43,42 @@ do{
         del(users);
         break;
       case 'P':
-        viewPortfolio(users[1]);
+        
+        cout << "Æ÷Æ®Æú¸®¿À¸¦ È®ÀÎÇÒ °èÁÂ¹øÈ£ ÀÔ·Â : " << endl;
+        cin >> portAccount;
+        
+        for(auto p : users)
+        {
+          if((p->accountID).compare(portAccount) == 0)
+          {
+            viewPortfolio(p);
+            pflag = 1;
+            break;
+          }             
+        }
+        if(pflag == 1) 
+        {
+          pflag = 0;
+          break;
+        }
+        cout << "ÇØ´ç °èÁÂ´Â °Ë»öµÇÁö ¾Ê½À´Ï´Ù" << endl;
         break;
         
       case 'A':
-      string a;
-      cin>>a;
-
-      if(a.compare("RunElevated")==0){
+        readall(users);
+        break;
+        /*
+        string a;
+        cin>>a;
+        
+      if(a.compare("RunElevated")==0)
+      {
+        readall(users);
+        
         int a1;
-        cout<<"1.ì‚¬ìš©ìžì˜ ëª¨ë“  ì •ë³´ ì—´ëžŒ"<<endl;
-        cout<<"ì–´ëŠ ê¸°ëŠ¥ì„ ì´ìš©í•˜ê² ìŠµë‹ˆê¹Œ?: ";
-        cin>>a1;
+        cout<<"1.»ç¿ëÀÚÀÇ ¸ðµç Á¤º¸ ¿­¶÷"<<endl;
+        cout<<"¾î´À ±â´ÉÀ» ÀÌ¿ëÇÏ°Ú½À´Ï±î?: ";
+        cin>>a1; 
         if(a1==1){
           int a=0;
           a=readall(users);
@@ -75,7 +90,7 @@ do{
       else{
         cin.clear();
         cin.ignore(256,'\n');
-      }
+      } */
 
     }
   }while (c != 'q');

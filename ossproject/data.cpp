@@ -91,7 +91,6 @@ vector<account> loadUserData(map<string, vector<int>> stockdata)
 
     if (infile.is_open()) 
     {
-        cout<<"open file1";
         while (getline(infile, line)) 
         {
 

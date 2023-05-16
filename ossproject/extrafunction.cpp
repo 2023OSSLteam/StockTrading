@@ -20,7 +20,7 @@ void viewPortfolio(account u)
     {
         int rate = (stk->purchase_amount / u->assetAmount)*100;
         
-        cout.width(14);
+        cout.width(16);
         cout << std::left << symbol;
         cout.width(3);
         cout << std::left << rate << "%" << endl;
@@ -38,7 +38,10 @@ void viewPortfolio(account u)
     }
     int cashrate = (float(u->cash)/float(u->assetAmount))*100.0;
     
-    cout << "Cash " << cashrate << "%" << endl;
+    cout.width(16);
+    cout << std::left << "Cash"; 
+    cout.width(3);
+    cout << std::left << cashrate << "%" << endl;
 
     unsigned short text = rand() % 16;
     unsigned short back = (rand() % 15) + 1;
