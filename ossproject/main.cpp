@@ -42,6 +42,10 @@ int main(int argc, char **argv)
       case 'D':
         del(users);
         break;
+       case 'S':
+      sell(users,stocks);
+      break;
+        
         
        case 'B':
        buy(users,stocks);
