@@ -175,6 +175,14 @@ void read(vector<account> users){//자기 정보 읽기
             cout<<"user: "+users[i]->owner_name<<endl;
             cout<<"계좌번호: "+users[i]->accountID<<endl;
             cout<<"예수금: "<<users[i]->cash<<endl;
+
+            cout<<endl;
+            
+            cout<<"매입자산: "<<users[i]->assetAmount<<" won"<<endl;
+            cout<<"평가자산: "<<users[i]->assetValue<<" won"<<endl;
+            cout<<"수익률: "<<users[i]->assetReturnRatio<<" %"<<endl;
+            cout<<"수익금: "<<users[i]->assetReturnValue<<" won"<<endl;
+
             cout << "======================" << endl;
             for(auto const& a : users[i]->stockOwned){
                 
@@ -226,6 +234,12 @@ int readall(vector<account> users){
             cout<<"user: "+users[i]->owner_name<<endl;
             cout<<"계좌번호: "+users[i]->accountID<<endl;
             cout<<"예수금: "<<users[i]->cash<<endl;
+            cout<<endl;
+            
+            cout<<"매입자산: "<<users[i]->assetAmount<<" won"<<endl;
+            cout<<"평가자산: "<<users[i]->assetValue<<" won"<<endl;
+            cout<<"수익률: "<<users[i]->assetReturnRatio<<" %"<<endl;
+            cout<<"수익금: "<<users[i]->assetReturnValue<<" won"<<endl;
 
             cout << "======================" << endl;
             for(auto const& a : users[i]->stockOwned){
@@ -256,6 +270,12 @@ int readall(vector<account> users){
             cout<<"user: "+users[i]->owner_name<<endl;
             cout<<"계좌번호: "+users[i]->accountID<<endl;
             cout<<"예수금: "<<users[i]->cash<<endl;
+            cout<<endl;
+            
+            cout<<"매입자산: "<<users[i]->assetAmount<<" won"<<endl;
+            cout<<"평가자산: "<<users[i]->assetValue<<" won"<<endl;
+            cout<<"수익률: "<<users[i]->assetReturnRatio<<" %"<<endl;
+            cout<<"수익금: "<<users[i]->assetReturnValue<<" won"<<endl;
             cout << "======================" << endl;
             for(auto const& a : users[i]->stockOwned){
                 cout<<endl;

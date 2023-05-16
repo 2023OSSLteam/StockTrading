@@ -119,7 +119,13 @@ vector<account> loadUserData(map<string, vector<int>> stockdata)
             user->assetAmount = user->purchaseAmount + user->cash;
             user->assetValue = user->totalStockValue + user->cash;
             
-            user->assetReturnRatio = user->assetValue/user->assetAmount;
+            user->assetReturnRatio = float(user->assetValue)/float(user->assetAmount);
+            if(user->assetReturnRatio >= 1)
+                user->assetReturnRatio -= 1;
+            else
+                user->assetReturnRatio = 1 - user->assetReturnRatio;
+            user->assetReturnRatio = user->assetReturnRatio*100.0;
+
             user->assetReturnValue = user->assetValue - user->assetAmount;
 
             userdata.push_back(user); 

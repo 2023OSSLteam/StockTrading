@@ -28,7 +28,7 @@ struct Account {
 	int assetAmount = 0; // 총 매입 자산
 	int assetValue = 0; // 총 평가 자산
 	int cash = 0; // 예수금
-	int assetReturnRatio = 0; // 계좌 수익률
+	double assetReturnRatio = 0; // 계좌 수익률
 	int assetReturnValue = 0; // 계좌 수익
 	~Account() {}
 };
