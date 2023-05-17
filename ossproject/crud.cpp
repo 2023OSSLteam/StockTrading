@@ -13,6 +13,7 @@ void menu(){
     cout << "C: 회원가입\n";
     cout << "R: 나의 정보 보기\n";
     cout << "U: 나의 정보 수정\n";
+    cout << "O: 우수 고객\n";
     cout << "B: 주식 구매\n";
     cout << "S: 주식 판매\n";
     cout << "D: 탈퇴\n";
