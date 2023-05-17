@@ -95,10 +95,84 @@ void goNextDay(map<string, vector<int>>& stocks, vector<account>& users)
         u->assetReturnValue = u->assetValue - u->assetAmount;
     }
 }
-/*
-vector<double> calculateRSI(map<string, vector<int>>& stocks, string stockName)
-{
-    
 
-    return 0;
-}*/
+void calculateRSI(map<string, vector<int>>& stocks, string stockName)
+{
+    int searchflag = 0;
+    vector<int> diff;
+    vector<int> up;
+    vector<int> down;
+    vector<double> AU;
+    vector<double> DU;
+    vector<double> rsi;
+
+    for (auto& s : stocks) 
+    {
+        if(s.first.compare(stockName) == 0)
+        {
+            int lastIndex = s.second.size() - 19;
+
+            for (int i = lastIndex; i < s.second.size(); i++) 
+            {
+                diff.push_back(s.second[i] - s.second[i-1]);
+                if(diff.back() >= 0)
+                {
+                    up.push_back(diff.back());
+                    down.push_back(0);
+
+                }
+                else
+                {
+                    down.push_back(abs(diff.back()));
+                    up.push_back(0);
+                }
+                
+            }
+            for(int i=14; i<19;i++)
+            {
+                double uavg = 0;
+                double davg = 0;
+
+                for(int k=i-14; k<i-1;k++)
+                {
+                    uavg += up[k];
+                    davg += down[k];                    
+                }
+                rsi.push_back(((uavg / 14.0) / ((uavg / 14.0)+ (davg / 14.0)))*100);
+
+            }
+
+            searchflag = 1;
+            break;
+        }
+
+    }
+    if(searchflag == 0) 
+    {
+        cout << "stock not found" << endl;
+        return;
+    }
+    
+    cout << "[" ;
+    for (int i = 0; i < 5; i++) 
+    {
+        cout.precision(3);
+        if(i<4)    
+            cout << rsi[i] << " -> ";
+        else
+            cout << rsi[i] ;
+    }
+    cout << "]" << endl;
+
+    if(rsi[4] >= 70) cout <<"과매수 구간으로 매도를 추천 드립니다!"<<endl;
+    else if(rsi[4] <= 30) cout <<"과매도 구간으로 매수를 추천 드립니다!"<<endl;
+
+
+    if(rsi[0] <= rsi[4])
+        cout << "해당 주식은 상승 추세에 있습니다!" << endl;
+    else
+        cout << "해당 주식은 하락 추세에 있습니다!" << endl;
+
+    cout << endl;
+
+}
