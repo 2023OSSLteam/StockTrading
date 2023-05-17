@@ -82,6 +82,12 @@ int main(int argc, char **argv)
         calculateRSI(stocks, "»ï¼ºÀüÀÚ");
         break;
         
+      
+      case 'V':
+        printNowStock(stocks, 50);
+        break;
+
+      
         
         /*
         string a;

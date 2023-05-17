@@ -4,8 +4,12 @@
 #include <vector>
 #include <time.h>
 #include <random>
+#include <sstream>
+
 #include "account.h"
 #include "extrafunction.h"
+
+
 
 void setColor(unsigned short text, unsigned short back)
 {
@@ -175,4 +179,50 @@ void calculateRSI(map<string, vector<int>>& stocks, string stockName)
 
     cout << endl;
 
+}
+
+
+void printNowStock(map<string, vector<int>>& stocks, int rank)
+{   
+    int r = 0;
+    cout << "     Stocks     | Today |  Change  | Ratio" << endl;
+    cout << "----------------|-------|----------|------" << endl;
+    
+    for (auto& s : stocks) 
+    {
+        if(rank == r)
+            break;
+
+        int current_p = s.second.back();
+        int yesterday = s.second[s.second.size() - 2];
+        int spread = (current_p - yesterday);
+        float ratio =  (float(spread) / float(yesterday)) * 100;
+        
+        cout.width(16);
+        cout << s.first ;
+        cout << "|" ;
+
+        cout.width(7);
+        cout << current_p;
+        cout << "|" ;
+
+        string sign = spread >= 0 ? "+" : "";
+        string spread_str = sign + to_string(spread);
+
+        cout.width(10); 
+        cout << spread_str;
+        cout << "|" ;
+
+        sign = ratio >= 0 ? "+" : "";
+        string ratio_str = sign + to_string(ratio);
+        
+        int index = ratio_str.find('.');
+        ratio_str = ratio_str.substr(0, index) + ratio_str.substr(index , 3); //  
+    
+        cout.width(6);
+        cout  << ratio_str <<"%" <<endl;
+
+        r++;
+    }
+    cout << endl;
 }
