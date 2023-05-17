@@ -15,3 +15,4 @@ void save(vector<account> users);
 void sell(vector<account> &users, map<string, vector<int>> stockdata);
 int readall(vector<account> users);
 void buy(vector<account> &users, map<string, vector<int>> stockdata);
+void ranking(vector<account> users);
