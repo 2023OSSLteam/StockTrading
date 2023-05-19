@@ -1,6 +1,7 @@
 #include <Windows.h>
+#include <fstream>
+#include <cstring>
 #include <stdio.h>
-#include <iostream>
 #include <vector>
 #include <time.h>
 #include <random>
@@ -169,14 +170,14 @@ void calculateRSI(map<string, vector<int>>& stocks, string stockName)
     }
     cout << "]" << endl;
 
-    if(rsi[4] >= 70) cout <<"°ú¸Å¼ö ±¸°£À¸·Î ¸Åµµ¸¦ ÃßÃµ µå¸³´Ï´Ù!"<<endl;
-    else if(rsi[4] <= 30) cout <<"°ú¸Åµµ ±¸°£À¸·Î ¸Å¼ö¸¦ ÃßÃµ µå¸³´Ï´Ù!"<<endl;
+    if(rsi[4] >= 70) cout <<"ê³¼ë§¤ìˆ˜ êµ¬ê°„ìœ¼ë¡œ ë§¤ë„ë¥¼ ì¶”ì²œ ë“œë¦½ë‹ˆë‹¤!"<<endl;
+    else if(rsi[4] <= 30) cout <<"ê³¼ë§¤ë„ êµ¬ê°„ìœ¼ë¡œ ë§¤ìˆ˜ë¥¼ ì¶”ì²œ ë“œë¦½ë‹ˆë‹¤!"<<endl;
 
 
     if(rsi[0] <= rsi[4])
-        cout << "ÇØ´ç ÁÖ½ÄÀº »ó½Â Ãß¼¼¿¡ ÀÖ½À´Ï´Ù!" << endl;
+        cout << "í•´ë‹¹ ì£¼ì‹ì€ ìƒìŠ¹ ì¶”ì„¸ì— ìžˆìŠµë‹ˆë‹¤!" << endl;
     else
-        cout << "ÇØ´ç ÁÖ½ÄÀº ÇÏ¶ô Ãß¼¼¿¡ ÀÖ½À´Ï´Ù!" << endl;
+        cout << "í•´ë‹¹ ì£¼ì‹ì€ í•˜ë½ ì¶”ì„¸ì— ìžˆìŠµë‹ˆë‹¤!" << endl;
 
     cout << endl;
 
@@ -230,7 +231,7 @@ void printNowStock(map<string, vector<int>>& stocks, int rank)
 
 void fallSearch(map<string, vector<int>>& stocks, int fallRate)
 {
-    cout << "ÃÖ±Ù 6°³¿ù°£ °íÁ¡´ëºñ " << fallRate << "% ÀÌ»ó ÇÏ¶ôÇÑ Á¾¸ñÀº??" << endl;
+    cout << "ìµœê·¼ 6ê°œì›”ê°„ ê³ ì ëŒ€ë¹„ " << fallRate << "% ì´ìƒ í•˜ë½í•œ ì¢…ëª©ì€??" << endl;
     cout << "       Stocks       | High |   Now   | Fall Rate" << endl;
     cout << "--------------------|------|---------|----------" << endl;
 
@@ -273,11 +274,11 @@ void sellALL(vector<account>& users)
 {
     string name, ID, password;
     string sellitem;
-    cout<<"ÀÌ¸§ : ";
+    cout<<"ì´ë¦„ : ";
     cin>>name;
-    cout<<"°èÁÂ¹øÈ£ : ";
+    cout<<"ê³„ì¢Œë²ˆí˜¸ : ";
     cin>>ID;
-    cout<<"ºñ¹Ð¹øÈ£ : ";
+    cout<<"ë¹„ë°€ë²ˆí˜¸ : ";
     cin>>password;
 
 
@@ -288,10 +289,10 @@ void sellALL(vector<account>& users)
             for(auto const& stocks : users[i]->stockOwned)
             {
                 auto const& val = stocks.second;
-                cout<<"±â¾÷ : "<<val->name <<  endl;
-                cout<<"¸ÅÀÔ ±Ý¾× : " << std::fixed << std::setprecision(0) << val->purchase_amount <<  endl;
-                cout<<"Ã»»ê ±Ý¾× : " << std::fixed << std::setprecision(0) << val->evaluation_amount <<  endl;
-                cout<<"¼öÀÍ : " << std::fixed << std::setprecision(0) << val->evaluation_amount - val->purchase_amount<< endl;;
+                cout<<"ê¸°ì—… : "<<val->name <<  endl;
+                cout<<"ë§¤ìž… ê¸ˆì•¡ : " << std::fixed << std::setprecision(0) << val->purchase_amount <<  endl;
+                cout<<"ì²­ì‚° ê¸ˆì•¡ : " << std::fixed << std::setprecision(0) << val->evaluation_amount <<  endl;
+                cout<<"ìˆ˜ìµ : " << std::fixed << std::setprecision(0) << val->evaluation_amount - val->purchase_amount<< endl;;
                 cout << endl;
                 users[i]->cash += val->evaluation_amount;                
             }
@@ -304,4 +305,91 @@ void sellALL(vector<account>& users)
             
     }        
     
+}
+
+
+void graph(map<string, vector<int>> stockdata){
+    int a;
+    cout<<"1. ìµœê·¼ í•œë‹¬ë™ì•ˆì˜ ë³€í™”"<<endl;
+    cout<<"2. ìµœê·¼ ì„¸ë‹¬ ê°„ì˜ ë³€í™”"<<endl;
+    cin>>a;
+    string c;
+    int check=0;
+    int end;
+    if(a==1){//í•œë‹¬ê°€ëŸ‰
+        int arr[30];
+        cout<<"ì–´ëŠ ê¸°ì—…ì˜ ìµœê·¼ í•œë‹¬ì¹˜ ì£¼ì‹ì„ í™•ì¸í•˜ê² ìŠµë‹ˆê¹Œ? ";
+        cin>>c;
+        for(auto const& [key,val] : stockdata){
+            if(key==c){
+                check++;
+                end=val.size()-31;
+                int order=0;
+                for(int i=val.size()-1; i>=end; --i){
+                    arr[order]=val[i];
+                    order++;
+                }
+                break;
+            }
+        }
+        if(check==0){
+            cout<<"ì¼ì¹˜í•˜ëŠ” ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤."<<endl<<endl;
+        }
+        else{
+        int com=arr[0]/50;
+
+            for(int i=0; i<30; i++){
+                int jump=arr[i]/com;
+                for(int j=10; j<jump; j++){
+                    cout<<" ";
+                }
+                cout<<"*"<<arr[i]<<endl;
+            }
+        }
+    }
+    else if(a==2){//ì„¸ë‹¬ì¹˜
+        int arr2[30]={0};
+        cout<<"ì–´ëŠ ê¸°ì—…ì˜ ìµœê·¼ ì„¸ë‹¬ ê°„ì˜ ì£¼ì‹ì„ í™•ì¸í•˜ê² ìŠµë‹ˆê¹Œ? ";
+        cin>>c;
+        for(auto const& [key,val] : stockdata){
+            if(key==c){
+                check++;
+                end=val.size()-91;
+                int order=0;
+                int order2=0;
+
+                for(int i=val.size()-1; i>=end; --i){
+                    arr2[order]+=val[i];
+                    order2++;
+                    if(order2==3){
+                        order++;
+                        order2=0;
+                    }
+                }
+                break;
+            }
+        }
+        if(check==0){
+            cout<<"ì¼ì¹˜í•˜ëŠ” ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤."<<endl<<endl;
+        }
+        else{
+            int com1=arr2[0]/50;
+
+            for(int i=0; i<30; i++){
+                int jump1=arr2[i]/com1;
+                for(int j=10; j<jump1; j++){
+                    cout<<" ";
+                }
+                cout<<"*"<<arr2[i]/3<<endl;
+            }
+        }
+    }
+    else if(cin.fail()){
+        cout<<"ìž˜ëª» ìž…ë ¥í•˜ì˜€ìŠµë‹ˆë‹¤."<<endl<<endl;
+        cin.clear();
+        cin.ignore(256,'\n');
+    }
+    else{
+        cout<<"ì—†ëŠ” ë²ˆí˜¸ìž…ë‹ˆë‹¤."<<endl<<endl;
+    }
 }
