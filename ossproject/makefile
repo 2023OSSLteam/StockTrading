@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -Wall -g -I./include
+CFLAGS = -std=c++17 -Wall -g -I./include
 OBJS = crud.o data.o main.o extrafunction.o
 SRCS = crud.cpp data.cpp main.cpp extrafunction.cpp
 HEADERS = $(wildcard include/*.h)
