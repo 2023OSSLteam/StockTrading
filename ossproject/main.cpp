@@ -55,7 +55,7 @@ int main(int argc, char **argv)
       
       case 'P':
         
-        cout << "í¬íŠ¸í´ë¦¬ì˜¤ë¥¼ í™•ì¸í•  ê³„ì¢Œë²ˆí˜¸ ìž…ë ¥ : " << endl;
+        cout << "Æ÷Æ®Æú¸®¿À¸¦ È®ÀÎÇÒ °èÁÂ¹øÈ£ ÀÔ·Â : " << endl;
         cin >> portAccount;
         
         for(auto p : users)
@@ -72,7 +72,7 @@ int main(int argc, char **argv)
           pflag = 0;
           break;
         }
-        cout << "í•´ë‹¹ ê³„ì¢ŒëŠ” ê²€ìƒ‰ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤" << endl;
+        cout << "ÇØ´ç °èÁÂ´Â °Ë»öµÇÁö ¾Ê½À´Ï´Ù" << endl;
         break;
         
       case 'A':
@@ -84,12 +84,19 @@ int main(int argc, char **argv)
         break;
       
       case 'I':
-        calculateRSI(stocks, "ì‚¼ì„±ì „ìž");
+        calculateRSI(stocks, "»ï¼ºÀüÀÚ");
         break;
         
       
       case 'V':
         printNowStock(stocks, 50);
+        break;
+      
+      case 'F':
+        fallSearch(stocks, 30);
+        break;
+      case 'W':
+        sellALL(users);
         break;
 
       
@@ -103,8 +110,8 @@ int main(int argc, char **argv)
         readall(users);
         
         int a1;
-        cout<<"1.ì‚¬ìš©ìžì˜ ëª¨ë“  ì •ë³´ ì—´ëžŒ"<<endl;
-        cout<<"ì–´ëŠ ê¸°ëŠ¥ì„ ì´ìš©í•˜ê² ìŠµë‹ˆê¹Œ?: ";
+        cout<<"1.»ç¿ëÀÚÀÇ ¸ðµç Á¤º¸ ¿­¶÷"<<endl;
+        cout<<"¾î´À ±â´ÉÀ» ÀÌ¿ëÇÏ°Ú½À´Ï±î?: ";
         cin>>a1; 
         if(a1==1){
           int a=0;

@@ -5,7 +5,8 @@
 #include <time.h>
 #include <random>
 #include <sstream>
-
+#include <algorithm>
+#include <iomanip>
 #include "account.h"
 #include "extrafunction.h"
 
@@ -225,4 +226,82 @@ void printNowStock(map<string, vector<int>>& stocks, int rank)
         r++;
     }
     cout << endl;
+}
+
+void fallSearch(map<string, vector<int>>& stocks, int fallRate)
+{
+    cout << "최근 6개월간 고점대비 " << fallRate << "% 이상 하락한 종목은??" << endl;
+    cout << "       Stocks       | High |   Now   | Fall Rate" << endl;
+    cout << "--------------------|------|---------|----------" << endl;
+
+    for (auto& s : stocks) 
+    {
+        
+        int max = *max_element(s.second.begin(), s.second.end()-1);
+        int today = s.second.back();
+
+        int spread = (today - max);
+        float ratio =  (float(spread) / float(max)) * 100;
+
+        if(ratio < -fallRate)
+        {
+            cout.width(20);
+            cout << std::left << s.first ;
+            cout << "|" ;
+
+            cout.width(6);
+            cout << max ;
+            cout << "|" ;
+
+            cout.width(9);
+            cout << today ;
+            cout << "|" ;
+            
+
+            cout.width(10);
+            cout << std::right << ratio << "%" << endl;
+
+        }   
+        
+    }
+    cout << endl;
+    cout << endl;
+}
+
+
+void sellALL(vector<account>& users)
+{
+    string name, ID, password;
+    string sellitem;
+    cout<<"이름 : ";
+    cin>>name;
+    cout<<"계좌번호 : ";
+    cin>>ID;
+    cout<<"비밀번호 : ";
+    cin>>password;
+
+
+    for(vector<account>::size_type i = 0; i<users.size(); i++)
+    {
+        if(name.compare(users[i]->owner_name)==0 && ID.compare(users[i]->accountID)==0 && password.compare(users[i]->password)==0)
+        {
+            for(auto const& stocks : users[i]->stockOwned)
+            {
+                auto const& val = stocks.second;
+                cout<<"기업 : "<<val->name <<  endl;
+                cout<<"매입 금액 : " << std::fixed << std::setprecision(0) << val->purchase_amount <<  endl;
+                cout<<"청산 금액 : " << std::fixed << std::setprecision(0) << val->evaluation_amount <<  endl;
+                cout<<"수익 : " << std::fixed << std::setprecision(0) << val->evaluation_amount - val->purchase_amount<< endl;;
+                cout << endl;
+                users[i]->cash += val->evaluation_amount;                
+            }
+            users[i]->assetAmount = users[i]->cash;
+            users[i]->assetValue = users[i]->cash;
+            users[i]->assetReturnRatio = 0;
+            users[i]->assetReturnValue = 0;
+            users[i]->stockOwned.clear();
+        }
+            
+    }        
+    
 }
