@@ -713,7 +713,7 @@ void buy(vector<account> &users, map<string, vector<int>> stockdata){
 }
 
 void ranking(vector<account> users){
-    map<int, Rank> ranker;//int에는 총 주식 금액, Rank에는 사람 이름과 주식 그리고 그 수량
+    multimap<int, Rank> ranker;//int에는 총 주식 금액, Rank에는 사람 이름과 주식 그리고 그 수량
     vector<account>::size_type count=0;
     for(vector<account>::size_type i = 0; i<users.size();i++){
         Rank a;
