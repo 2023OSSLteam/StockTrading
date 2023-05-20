@@ -1,16 +1,17 @@
 #include <Windows.h>
 #include <fstream>
+#include <sstream>
 #include <cstring>
 #include <stdio.h>
 #include <vector>
+#include <set>
 #include <time.h>
 #include <random>
-#include <sstream>
 #include <algorithm>
 #include <iomanip>
+
 #include "account.h"
 #include "extrafunction.h"
-
 
 
 void setColor(unsigned short text, unsigned short back)
@@ -170,14 +171,14 @@ void calculateRSI(map<string, vector<int>>& stocks, string stockName)
     }
     cout << "]" << endl;
 
-    if(rsi[4] >= 70) cout <<"ê³¼ë§¤ìˆ˜ êµ¬ê°„ìœ¼ë¡œ ë§¤ë„ë¥¼ ì¶”ì²œ ë“œë¦½ë‹ˆë‹¤!"<<endl;
-    else if(rsi[4] <= 30) cout <<"ê³¼ë§¤ë„ êµ¬ê°„ìœ¼ë¡œ ë§¤ìˆ˜ë¥¼ ì¶”ì²œ ë“œë¦½ë‹ˆë‹¤!"<<endl;
+    if(rsi[4] >= 70) cout <<"°ú¸Å¼ö ±¸°£À¸·Î ¸Åµµ¸¦ ÃßÃµ µå¸³´Ï´Ù!"<<endl;
+    else if(rsi[4] <= 30) cout <<"°ú¸Åµµ ±¸°£À¸·Î ¸Å¼ö¸¦ ÃßÃµ µå¸³´Ï´Ù!"<<endl;
 
 
     if(rsi[0] <= rsi[4])
-        cout << "í•´ë‹¹ ì£¼ì‹ì€ ìƒìŠ¹ ì¶”ì„¸ì— ìžˆìŠµë‹ˆë‹¤!" << endl;
+        cout << "ÇØ´ç ÁÖ½ÄÀº »ó½Â Ãß¼¼¿¡ ÀÖ½À´Ï´Ù!" << endl;
     else
-        cout << "í•´ë‹¹ ì£¼ì‹ì€ í•˜ë½ ì¶”ì„¸ì— ìžˆìŠµë‹ˆë‹¤!" << endl;
+        cout << "ÇØ´ç ÁÖ½ÄÀº ÇÏ¶ô Ãß¼¼¿¡ ÀÖ½À´Ï´Ù!" << endl;
 
     cout << endl;
 
@@ -231,7 +232,7 @@ void printNowStock(map<string, vector<int>>& stocks, int rank)
 
 void fallSearch(map<string, vector<int>>& stocks, int fallRate)
 {
-    cout << "ìµœê·¼ 6ê°œì›”ê°„ ê³ ì ëŒ€ë¹„ " << fallRate << "% ì´ìƒ í•˜ë½í•œ ì¢…ëª©ì€??" << endl;
+    cout << "ÃÖ±Ù 6°³¿ù°£ °íÁ¡´ëºñ " << fallRate << "% ÀÌ»ó ÇÏ¶ôÇÑ Á¾¸ñÀº??" << endl;
     cout << "       Stocks       | High |   Now   | Fall Rate" << endl;
     cout << "--------------------|------|---------|----------" << endl;
 
@@ -274,11 +275,11 @@ void sellALL(vector<account>& users)
 {
     string name, ID, password;
     string sellitem;
-    cout<<"ì´ë¦„ : ";
+    cout<<"ÀÌ¸§ : ";
     cin>>name;
-    cout<<"ê³„ì¢Œë²ˆí˜¸ : ";
+    cout<<"°èÁÂ¹øÈ£ : ";
     cin>>ID;
-    cout<<"ë¹„ë°€ë²ˆí˜¸ : ";
+    cout<<"ºñ¹Ð¹øÈ£ : ";
     cin>>password;
 
 
@@ -289,10 +290,10 @@ void sellALL(vector<account>& users)
             for(auto const& stocks : users[i]->stockOwned)
             {
                 auto const& val = stocks.second;
-                cout<<"ê¸°ì—… : "<<val->name <<  endl;
-                cout<<"ë§¤ìž… ê¸ˆì•¡ : " << std::fixed << std::setprecision(0) << val->purchase_amount <<  endl;
-                cout<<"ì²­ì‚° ê¸ˆì•¡ : " << std::fixed << std::setprecision(0) << val->evaluation_amount <<  endl;
-                cout<<"ìˆ˜ìµ : " << std::fixed << std::setprecision(0) << val->evaluation_amount - val->purchase_amount<< endl;;
+                cout<<"±â¾÷ : "<<val->name <<  endl;
+                cout<<"¸ÅÀÔ ±Ý¾× : " << std::fixed << std::setprecision(0) << val->purchase_amount <<  endl;
+                cout<<"Ã»»ê ±Ý¾× : " << std::fixed << std::setprecision(0) << val->evaluation_amount <<  endl;
+                cout<<"¼öÀÍ : " << std::fixed << std::setprecision(0) << val->evaluation_amount - val->purchase_amount<< endl;;
                 cout << endl;
                 users[i]->cash += val->evaluation_amount;                
             }
@@ -301,24 +302,25 @@ void sellALL(vector<account>& users)
             users[i]->assetReturnRatio = 0;
             users[i]->assetReturnValue = 0;
             users[i]->stockOwned.clear();
+            return;
         }
             
-    }        
-    
+    }      
+    cout << "ÇØ´ç °èÁÂ´Â °Ë»öµÇÁö ¾Ê½À´Ï´Ù" << endl; 
 }
 
 
 void graph(map<string, vector<int>> stockdata){
     int a;
-    cout<<"1. ìµœê·¼ í•œë‹¬ë™ì•ˆì˜ ë³€í™”"<<endl;
-    cout<<"2. ìµœê·¼ ì„¸ë‹¬ ê°„ì˜ ë³€í™”"<<endl;
+    cout<<"1. ÃÖ±Ù ÇÑ´Þµ¿¾ÈÀÇ º¯È­"<<endl;
+    cout<<"2. ÃÖ±Ù ¼¼´Þ °£ÀÇ º¯È­"<<endl;
     cin>>a;
     string c;
     int check=0;
     int end;
-    if(a==1){//í•œë‹¬ê°€ëŸ‰
+    if(a==1){//ÇÑ´Þ°¡·®
         int arr[30];
-        cout<<"ì–´ëŠ ê¸°ì—…ì˜ ìµœê·¼ í•œë‹¬ì¹˜ ì£¼ì‹ì„ í™•ì¸í•˜ê² ìŠµë‹ˆê¹Œ? ";
+        cout<<"¾î´À ±â¾÷ÀÇ ÃÖ±Ù ÇÑ´ÞÄ¡ ÁÖ½ÄÀ» È®ÀÎÇÏ°Ú½À´Ï±î? ";
         cin>>c;
         for(auto const& [key,val] : stockdata){
             if(key==c){
@@ -333,7 +335,7 @@ void graph(map<string, vector<int>> stockdata){
             }
         }
         if(check==0){
-            cout<<"ì¼ì¹˜í•˜ëŠ” ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤."<<endl<<endl;
+            cout<<"ÀÏÄ¡ÇÏ´Â Á¤º¸°¡ ¾ø½À´Ï´Ù."<<endl<<endl;
         }
         else{
         int com=arr[0]/50;
@@ -347,9 +349,9 @@ void graph(map<string, vector<int>> stockdata){
             }
         }
     }
-    else if(a==2){//ì„¸ë‹¬ì¹˜
+    else if(a==2){//¼¼´ÞÄ¡
         int arr2[30]={0};
-        cout<<"ì–´ëŠ ê¸°ì—…ì˜ ìµœê·¼ ì„¸ë‹¬ ê°„ì˜ ì£¼ì‹ì„ í™•ì¸í•˜ê² ìŠµë‹ˆê¹Œ? ";
+        cout<<"¾î´À ±â¾÷ÀÇ ÃÖ±Ù ¼¼´Þ °£ÀÇ ÁÖ½ÄÀ» È®ÀÎÇÏ°Ú½À´Ï±î? ";
         cin>>c;
         for(auto const& [key,val] : stockdata){
             if(key==c){
@@ -370,7 +372,7 @@ void graph(map<string, vector<int>> stockdata){
             }
         }
         if(check==0){
-            cout<<"ì¼ì¹˜í•˜ëŠ” ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤."<<endl<<endl;
+            cout<<"ÀÏÄ¡ÇÏ´Â Á¤º¸°¡ ¾ø½À´Ï´Ù."<<endl<<endl;
         }
         else{
             int com1=arr2[0]/50;
@@ -385,11 +387,26 @@ void graph(map<string, vector<int>> stockdata){
         }
     }
     else if(cin.fail()){
-        cout<<"ìž˜ëª» ìž…ë ¥í•˜ì˜€ìŠµë‹ˆë‹¤."<<endl<<endl;
+        cout<<"Àß¸ø ÀÔ·ÂÇÏ¿´½À´Ï´Ù."<<endl<<endl;
         cin.clear();
         cin.ignore(256,'\n');
     }
     else{
-        cout<<"ì—†ëŠ” ë²ˆí˜¸ìž…ë‹ˆë‹¤."<<endl<<endl;
+        cout<<"¾ø´Â ¹øÈ£ÀÔ´Ï´Ù."<<endl<<endl;
     }
 }
+
+void whoBest(vector<account>& users)
+{   
+    sort(users.begin(), users.end(), [](const account &a, const account &b) {return a->assetReturnRatio > b->assetReturnRatio;});
+    
+    for (const account &user : users) 
+    {
+        cout << user->owner_name << " " << user->accountID << " " << user->assetReturnRatio << endl;
+    }
+}
+/*
+void makeRandomUser(vector<account>& users, map<string, vector<int>> stocks)
+{
+
+}*/
