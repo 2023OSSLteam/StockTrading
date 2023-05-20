@@ -10,13 +10,32 @@
 
 void menu(){
     cout << "======= 메뉴 =======\n";
+    cout << "------- CRUD -------\n";
     cout << "C: 회원가입\n";
     cout << "R: 나의 정보 보기\n";
     cout << "U: 나의 정보 수정\n";
-    cout << "O: 우수 고객\n";
-    cout << "B: 주식 구매\n";
-    cout << "S: 주식 판매\n";
     cout << "D: 탈퇴\n";
+
+    cout << "-- Extra Function --\n";
+    
+
+    cout << "B: 주식 매수\n";
+    cout << "S: 주식 매도\n";
+    cout << "W: 주식 전량 매도\n";
+    cout << "P: 포트폴리오 확인\n";
+
+    cout << "O: 우수 고객 목록\n";
+    cout << "E: 수익률 우수 목록\n";
+    
+    cout << "V: 주식 전광판 생성\n";
+    cout << "G: 차트 그리기\n";
+    cout << "F: 많이 떨어진 주식 검색\n";
+    cout << "I: 주식 RSI 계산\n";
+
+    cout << "N: 다음 날로 업데이트\n";
+    cout << "A: [관리자 권한 필요] 모든 유저 정보 확인 \n";
+
+    cout << "J: Userdata 저장\n";
     cout << "q: 종료\n";
     cout << "=====================\n";
 
@@ -73,7 +92,8 @@ cin>>y_n;
             int b=0;
             cout<<"가지고 있는 주식의 기업은?: ";
             cin>>newstock->name;
-            for(auto const& a : stockdata){
+            for(auto const& a : stockdata)
+            {
                 auto const& val=a.first;
                 if((val).compare(newstock->name)==0){
                     b++;
@@ -506,242 +526,6 @@ void del(vector<account> &users){//탈퇴
 }
 
 
-void save(vector<account> users){
-    string a;
-    ofstream user("./data/userdata/user.txt", ios_base::in);
-    for(vector<account>::size_type i = 0; i<users.size();i++){
-        user<<users[i]->owner_name<<"  ";
-        user<<users[i]->accountID<<"  ";
-        user<<users[i]->password<<"  ";
-        user<<users[i]->cash<<endl;
-        ofstream ID("./data/userdata/"+users[i]->accountID+".txt");
-        for(auto const& a : users[i]->stockOwned){
-            auto const& val=a.second;
-            ID<<val->name<<"  ";
-            ID<<val->purchase_price<<"  ";
-            ID<<val->holding_amount<<endl;
-            
-        }
-        ID.close();
-    }
-    user.close();
-}
-
-
-void sell(vector<account> &users, map<string, vector<int>> stockdata){
-    int check=0;//이름, 계좌번호, 비밀번호가 일치하는 것이 없을 때
-    int check2=0;//주식이 일치하는 것이 없을 때
-    string name, ID, password;
-    string sellitem;
-    cout<<"이름을 작성하시오.: ";
-    cin>>name;
-    cout<<"계좌번호를 작성하시오.: ";
-    cin>>ID;
-    cout<<"비밀번호를 작성하시오.: ";
-    cin>>password;
-
-    for(vector<account>::size_type i = 0; i<users.size(); i++)
-    {
-        if(name.compare(users[i]->owner_name)==0 && ID.compare(users[i]->accountID)==0 && password.compare(users[i]->password)==0){
-            cout<<"현재 보유 중인 주식은"<<endl;
-            for(auto& a : users[i]->stockOwned)
-            {
-                auto& val=a.second;
-                cout<<"기업: "<<val->name;
-                cout<<", 보유 수량: "<<val->holding_amount;
-                cout<<", 현재 금액: "<<val->current_price<<endl;;
-            }
-            cout<<endl;
-            cout<<"어느 주식을 판매하시겠습니까?: ";
-            cin>>sellitem;
-            for(auto const& [key, val] : users[i]->stockOwned){
-                if(sellitem.compare(val->name)==0){
-                    check2++;
-                    int sellamount;
-                    cout<<"몇 주를 판매하시겠습니까?: ";
-                    cin>>sellamount;
-                    if(sellamount>val->holding_amount){
-                        cout<<"현재 가지고 있는 수량보다 더 많은 양을 판매할 수 없습니다."<<endl;
-                        break;
-                    }
-                    else if(cin.fail()){
-                        cout<<"알 수 없는 오류"<<endl;
-                        break;
-                    }
-                    else if(sellamount<=0){
-                        cout<<"양수를 작성해 주십시오."<<endl;
-                        break;
-                    }
-                    else{
-                        int money;
-                        money=sellamount*val->current_price;
-                        val->holding_amount=val->holding_amount-sellamount;
-                        users[i]->cash+=money;
-                        val->purchase_amount =  val->purchase_price * val->holding_amount;
-                        val->evaluation_amount = val->current_price * val->holding_amount;
-                        users[i]->assetAmount = users[i]->purchaseAmount + users[i]->cash;
-                        users[i]->assetValue = users[i]->totalStockValue + users[i]->cash;
-                        
-                        users[i]->assetReturnRatio = users[i]->assetValue/users[i]->assetAmount;
-                        users[i]->assetReturnValue = users[i]->assetValue - users[i]->assetAmount;
-                        if(val->holding_amount==0){
-                            users[i]->stockOwned.erase(val->name);
-                        }
-                        break;
-                    }
-                }
-            }
-
-
-            check++;
-            break;
-        }
-    }
-    if(check==0){
-        cout<<"일치하는 정보가 없습니다."<<endl;
-    }
-    if(check2==0 && check != 0){
-        cout<<"가지고 있지 않은 주식입니다."<<endl;
-    }
-}
 
 
 
-void buy(vector<account> &users, map<string, vector<int>> stockdata){
-    string name, ID, password;
-    string buyitem;
-    int buy;
-    int check=0;
-    int check3=0;
-    int price=0;
-    cout<<"이름을 작성하시오.: ";
-
-    cin>>name;
-    cout<<"계좌번호를 작성하시오.: ";
-
-    cin>>ID;
-    cout<<"비밀번호를 작성하시오.: ";
-
-    cin>>password;
-
-     for(vector<account>::size_type i = 0; i<users.size(); i++){
-        if(name.compare(users[i]->owner_name)==0 && ID.compare(users[i]->accountID)==0 && password.compare(users[i]->password)==0){
-            check3++;
-            cout<<"현재 보유 중인 주식은"<<endl;
-            for(auto const& a : users[i]->stockOwned){
-                auto const& val=a.second;
-                cout<<"기업: "<<val->name;
-                cout<<", 보유 수량: "<<val->holding_amount;
-                cout<<", 현재 금액: "<<val->current_price<<endl;;
-            }
-            cout<<endl;
-            cout<<"구매하고 싶은 주식은 무엇입니까?: ";
-            cin>>buyitem;
-            for(auto const& [key,val]: stockdata){
-                if(buyitem.compare(key)==0){
-                    check++;
-                    price=val.back();
-                    cout<<"예수금: "<<users[i]->cash<<endl;
-                    cout<<key<<": "<<price<<endl;
-                    cout<<"몇 주를 구매하시겠습니까?: ";
-                    cin>>buy;
-                    price=price*buy;
-                    if(users[i]->cash<price){
-                        cout<<"예수금을 초과하였습니다. 구매가 불가능합니다."<<endl;
-                        break;
-                    }
-                    else if(price<0){
-                        cout<<"음수를 입력하지 말아주세요."<<endl;
-                        break;
-                    }
-                    else if(cin.fail()){
-                        cout<<"알 수 없는 오류"<<endl;
-                        cin.clear();
-                        cin.ignore(256,'\n');
-                        break;
-                    }
-                    else{
-                        users[i]->cash-=price;
-                        stock a=new Stock;
-                        a->name=buyitem;
-                        a->purchase_amount=val.back();
-                        a->current_price=val.back();
-                        a->purchase_amount=price;
-                        a->evaluation_amount=price;
-                        a->holding_amount=buy;
-
-                        int check4=0;
-                        for(auto const& [key,val] : users[i]->stockOwned){
-                            if(buyitem.compare(key)==0){
-                                val->holding_amount+=buy;
-                                val->purchase_price=(val->purchase_amount+val->current_price*buy)/val->holding_amount;
-                                val->purchase_amount=val->purchase_price*val->holding_amount;
-                                val->evaluation_amount=val->current_price*val->holding_amount;
-                                
-                                check4++;
-                            }
-                        }
-                        if(check4==0){
-                        users[i]->stockOwned.insert({buyitem,a});
-                        }
-
-
-
-                        users[i]->purchaseAmount+=a->purchase_amount;
-                        users[i]->totalStockValue+=a->evaluation_amount;
-                        users[i]->assetAmount=users[i]->purchaseAmount+users[i]->cash;
-                        users[i]->assetValue = users[i]->totalStockValue + users[i]->cash;
-                        users[i]->assetReturnRatio = users[i]->assetValue/users[i]->assetAmount;
-                        users[i]->assetReturnValue = users[i]->assetValue - users[i]->assetAmount;
-                        break;
-                        
-                    }
-                }
-            }
-            if(check==0){
-                cout<<"사이트 내에서 구매가 불가능한 주식이거나 존재하지 않는 주식입니다."<<endl;
-                break;
-            }
-        }
-
-     }
-     if(check3==0){
-        cout<<"일치하는 정보가 없습니다."<<endl;
-     }
-}
-
-void ranking(vector<account> users){
-    multimap<int, Rank> ranker;//int에는 총 주식 금액, Rank에는 사람 이름과 주식 그리고 그 수량
-    vector<account>::size_type count=0;
-    for(vector<account>::size_type i = 0; i<users.size();i++){
-        Rank a;
-
-        a.people=users[i]->owner_name;
-        for(auto const& [key,val] : users[i]->stockOwned){
-            a.hold.insert({val->name,val->holding_amount});
-        }
-        ranker.insert({users[i]->assetValue, a});
-    }
-
-    for(auto const& [key,val] : ranker){
-        count++;
-        cout<<"고객: "<<val.people<<endl<<endl;
-        cout<<"총 금액: "<<key<<endl<<endl;;
-        for(auto const& [key1,val1] : val.hold){
-            cout<<"주식: "<<key1<<endl;
-            cout<<"총 수량: "<<val1<<endl;
-            cout<<endl;
-        }
-        cout<<endl;
-        if(users.size()<10){
-            if(count==5){
-                break;
-            }
-        }
-        else if(users.size()>=10){
-            if(count==users.size()/10){
-                break;
-            }
-        }
-    }
-}

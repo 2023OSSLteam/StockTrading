@@ -11,7 +11,6 @@ struct Rank{
 	map<string, int> hold;//가지고 있는 주식의 이름과 그 수량
 };
 
-
 struct Stock {
     string name;        // 종목명
     double purchase_price;  // 매입가격

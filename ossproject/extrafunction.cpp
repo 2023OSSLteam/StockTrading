@@ -10,7 +10,11 @@
 #include <algorithm>
 #include <iomanip>
 
+#ifndef ACCOUNT_H
 #include "account.h"
+#define ACCOUNT_H
+#endif
+
 #include "extrafunction.h"
 
 

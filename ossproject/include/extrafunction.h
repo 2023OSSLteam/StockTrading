@@ -1,6 +1,10 @@
 #include <iostream>
 #include <vector>
+
+#ifndef ACCOUNT_H
 #include "account.h"
+#define ACCOUNT_H
+#endif
 
 void viewPortfolio(account u);
 void goNextDay(map<string, vector<int>>& stocks, vector<account>& users);
