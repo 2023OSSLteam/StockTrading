@@ -143,13 +143,13 @@ vector<account> loadUserData(map<string, vector<int>> stockdata)
 
 void save(vector<account> users){
     string a;
-    ofstream user("./data/userdata/user.txt", ios_base::in);
+    ofstream user("./data/userdata/user.txt", ios_base::out);
     for(vector<account>::size_type i = 0; i<users.size();i++){
         user<<users[i]->owner_name<<"  ";
         user<<users[i]->accountID<<"  ";
         user<<users[i]->password<<"  ";
         user<<users[i]->cash<<endl;
-        ofstream ID("./data/userdata/"+users[i]->accountID+".txt");
+        ofstream ID("./data/userdata/"+users[i]->accountID+".txt", ios_base::out);
         for(auto const& a : users[i]->stockOwned){
             auto const& val=a.second;
             ID<<val->name<<"  ";
