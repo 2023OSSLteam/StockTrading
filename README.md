@@ -68,11 +68,12 @@ Stock Trading System란 주식 거래 시스템으로 사용자의 계좌 포트
 - 고점 대비 과대 낙폭 주식 검색
  
 ### 김성지
-- 주식 차트 생성
 - CRUD 및 로드 세이브
-- Random User 생성
+- 주식 차트 생성
+- 매수 기능
+- 매도 기능
 - 수익률 높은 순 유저 출력 
-- 우수 고객 정리
+- 총 평가 자산 높은 순 유저 출력
 
 ## Development Environment
 <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=c%2B%2B&logoColor=white">
