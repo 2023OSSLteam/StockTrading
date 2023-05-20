@@ -110,32 +110,6 @@ int main(int argc, char **argv)
       case 'E':
         whoBest(users);
         break;
-      
-        
-        /*
-        string a;
-        cin>>a;
-        
-      if(a.compare("RunElevated")==0)
-      {
-        readall(users);
-        
-        int a1;
-        cout<<"1.사용자의 모든 정보 열람"<<endl;
-        cout<<"어느 기능을 이용하겠습니까?: ";
-        cin>>a1; 
-        if(a1==1){
-          int a=0;
-          a=readall(users);
-          if(a==0){
-            c='q';
-          }
-        }
-      }
-      else{
-        cin.clear();
-        cin.ignore(256,'\n');
-      } */
 
     }
   }while (c != 'q');

@@ -137,12 +137,12 @@ cin.ignore(256,'\n');
 }
 //stock를 이용하여 나머지 account채우기
 
-for(auto const& a : newN->stockOwned){
-    auto const& key=a.first;
+for(auto const& a : newN->stockOwned)
+{
     auto const& val=a.second;
     newN->purchaseAmount += val->purchase_amount ;
     newN->totalStockValue += val->evaluation_amount;
-    }
+}
 newN->assetAmount = newN->purchaseAmount + newN->cash;
 newN->assetValue = newN->totalStockValue + newN->cash;
             
@@ -410,7 +410,7 @@ void update(vector<account> users){//기존의 계좌에서 예수금이 충분한 계좌로 이동
                         int b=0;
                         cout<<"변경할 계좌번호를 입력하십시오: "<<endl;
                         cin>>newnum;
-                        for(int i=0; i<users.size() ; i++){
+                        for(std::vector<int>::size_type i=0; i<users.size() ; i++){
                             if(users[i]->accountID.compare(newnum)==0){
                                 cout<<"동일한 계좌번호가 있습니다. 다시 입력하세요."<<endl;
                                 cin.clear();
@@ -433,9 +433,6 @@ void update(vector<account> users){//기존의 계좌에서 예수금이 충분한 계좌로 이동
 
                     string a= "./data/userdata/"+users[i]->accountID;
                     a+=".txt";
-
-                    const char *b= a.c_str();
-                    //cout<<remove(b); 
 
                     users[i]->accountID=newnum;
                     users[i]->password=newpassword;
@@ -492,8 +489,6 @@ void del(vector<account> &users){//탈퇴
                 string a= "./data/userdata/"+users[i]->accountID;
                 a+=".txt";
 
-                const char *b= a.c_str();
-                //cout<<remove(b); 
                 cout<<"삭제되었습니다."<<endl;
                 check++;
                 break;
