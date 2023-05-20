@@ -507,7 +507,8 @@ void del(vector<account> &users){//탈퇴
                 users.erase(users.begin()+i);
                 string a= "./data/userdata/"+users[i]->accountID;
                 a+=".txt";
-
+                const char *b= a.c_str();
+                remove(b); 
                 cout<<"삭제되었습니다."<<endl;
                 check++;
                 break;
