@@ -453,7 +453,9 @@ void update(vector<account> users){//기존의 계좌에서 예수금이 충분�
 
                     string a= "./data/userdata/"+users[i]->accountID;
                     a+=".txt";
-
+                    const char *b= a.c_str();
+                    remove(b); 
+               
                     users[i]->accountID=newnum;
                     users[i]->password=newpassword;
                     users[i]->cash+=newcash;
