@@ -66,10 +66,12 @@ Stock Trading System란 주식 거래 시스템으로 사용자의 계좌 포트
 - 보조 지표 RSI
 - 일괄 청산 기능
 - 고점 대비 과대 낙폭 주식 검색
+ 
 ### 김성지
 - 주식 차트 생성
 - CRUD 및 로드 세이브
-- 가상 주식 판매 및 구매
+- Random User 생성
+- 수익률 높은 순 유저 출력 
 - 우수 고객 정리
 
 ## Development Environment
